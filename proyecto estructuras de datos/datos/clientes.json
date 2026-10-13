@@ -1,0 +1,143 @@
+[
+    {
+        "nombre": "Lucas",
+        "apellido": "González",
+        "dni": "38452109",
+        "telefono": "11-4512-8930",
+        "direccion": "Av. San Martín 1420, Buenos Aires",
+        "peliculas_reservadas": [
+            "MOV-001",
+            "MOV-006"
+        ]
+    },
+    {
+        "nombre": "Martina",
+        "apellido": "Rodríguez",
+        "dni": "41235678",
+        "telefono": "11-6234-1189",
+        "direccion": "Calle Mitre 830, Buenos Aires",
+        "peliculas_reservadas": []
+    },
+    {
+        "nombre": "Santiago",
+        "apellido": "Fernández",
+        "dni": "35987412",
+        "telefono": "11-3987-5421",
+        "direccion": "Belgrano 450, Buenos Aires",
+        "peliculas_reservadas": [
+            "MOV-014"
+        ]
+    },
+    {
+        "nombre": "Camila",
+        "apellido": "López",
+        "dni": "43567890",
+        "telefono": "11-5874-9023",
+        "direccion": "Rivadavia 2105, Buenos Aires",
+        "peliculas_reservadas": []
+    },
+    {
+        "nombre": "Agustín",
+        "apellido": "Martínez",
+        "dni": "39871234",
+        "telefono": "11-2345-6710",
+        "direccion": "Alsina 112, Buenos Aires",
+        "peliculas_reservadas": [
+            "MOV-002",
+            "MOV-004",
+            "MOV-010"
+        ]
+    },
+    {
+        "nombre": "Valentina",
+        "apellido": "Díaz",
+        "dni": "42109876",
+        "telefono": "11-7654-3209",
+        "direccion": "Sarmiento 675, Buenos Aires",
+        "peliculas_reservadas": []
+    },
+    {
+        "nombre": "Joaquín",
+        "apellido": "Pérez",
+        "dni": "37654321",
+        "telefono": "11-4109-8734",
+        "direccion": "Colón 980, Buenos Aires",
+        "peliculas_reservadas": [
+            "MOV-013"
+        ]
+    },
+    {
+        "nombre": "Sofía",
+        "apellido": "Romero",
+        "dni": "44321654",
+        "telefono": "11-6789-0145",
+        "direccion": "España 315, Buenos Aires",
+        "peliculas_reservadas": []
+    },
+    {
+        "nombre": "Mateo",
+        "apellido": "Alvarez",
+        "dni": "40198234",
+        "telefono": "11-5432-1980",
+        "direccion": "Av. de Mayo 740, Buenos Aires",
+        "peliculas_reservadas": [
+            "MOV-003",
+            "MOV-019"
+        ]
+    },
+    {
+        "nombre": "Lucía",
+        "apellido": "Torres",
+        "dni": "42876543",
+        "telefono": "11-3210-9845",
+        "direccion": "Independencia 1540, Buenos Aires",
+        "peliculas_reservadas": []
+    },
+    {
+        "nombre": "Nicolás",
+        "apellido": "Flores",
+        "dni": "36541289",
+        "telefono": "11-6890-4321",
+        "direccion": "Urquiza 310, Buenos Aires",
+        "peliculas_reservadas": [
+            "MOV-020"
+        ]
+    },
+    {
+        "nombre": "Julieta",
+        "apellido": "Benítez",
+        "dni": "45123987",
+        "telefono": "11-7890-1234",
+        "direccion": "Lavalle 1890, Buenos Aires",
+        "peliculas_reservadas": []
+    },
+    {
+        "nombre": "Tomás",
+        "apellido": "Acosta",
+        "dni": "39432108",
+        "telefono": "11-4321-8765",
+        "direccion": "Moreno 560, Buenos Aires",
+        "peliculas_reservadas": [
+            "MOV-007",
+            "MOV-016"
+        ]
+    },
+    {
+        "nombre": "Micaela",
+        "apellido": "Castro",
+        "dni": "41987654",
+        "telefono": "11-5678-2341",
+        "direccion": "Chacabuco 425, Buenos Aires",
+        "peliculas_reservadas": []
+    },
+    {
+        "nombre": "Facundo",
+        "apellido": "Medina",
+        "dni": "38765432",
+        "telefono": "11-3456-7812",
+        "direccion": "Roca 1150, Buenos Aires",
+        "peliculas_reservadas": [
+            "MOV-011"
+        ]
+    }
+]
