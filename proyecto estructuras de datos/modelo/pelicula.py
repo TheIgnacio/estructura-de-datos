@@ -15,7 +15,10 @@ class Pelicula:
         self._anio = anio
         self._stock = stock
 
-
+    @property
+    def codigo(self):
+        return self._codigo
+    
     @property
     def titulo(self):
         return self._titulo
