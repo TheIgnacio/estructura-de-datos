@@ -1,5 +1,5 @@
 from servicios.persistencia import cargar_catalogo
-from ui.menu import Menu
+from UX.Menu import Menu
 def main():
 
     catalogo = cargar_catalogo("datos/Peliculas.json")
