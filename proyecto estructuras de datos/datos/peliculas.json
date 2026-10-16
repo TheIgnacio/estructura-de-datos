@@ -3,7 +3,7 @@
         "codigo": "MOV-001",
         "titulo": "Volver al Futuro",
         "categoria": "Ciencia Ficción",
-        "autor": "Robert Zemeckis",
+        "director": "Robert Zemeckis",
         "anio": 1985,
         "stock": 5
     },
@@ -11,7 +11,7 @@
         "codigo": "MOV-002",
         "titulo": "Volver al Futuro II",
         "categoria": "Ciencia Ficción",
-        "autor": "Robert Zemeckis",
+        "director": "Robert Zemeckis",
         "anio": 1989,
         "stock": 3
     },
@@ -19,7 +19,7 @@
         "codigo": "MOV-003",
         "titulo": "Volver al Futuro III",
         "categoria": "Ciencia Ficción / Western",
-        "autor": "Robert Zemeckis",
+        "director": "Robert Zemeckis",
         "anio": 1990,
         "stock": 0
     },
@@ -27,7 +27,7 @@
         "codigo": "MOV-004",
         "titulo": "El Origen",
         "categoria": "Ciencia Ficción / Acción",
-        "autor": "Christopher Nolan",
+        "director": "Christopher Nolan",
         "anio": 2010,
         "stock": 4
     },
@@ -35,7 +35,7 @@
         "codigo": "MOV-005",
         "titulo": "Tiempos Violentos",
         "categoria": "Crimen / Drama",
-        "autor": "Quentin Tarantino",
+        "director": "Quentin Tarantino",
         "anio": 1994,
         "stock": 0
     },
@@ -43,7 +43,7 @@
         "codigo": "MOV-006",
         "titulo": "El Caballero de la Noche",
         "categoria": "Acción / Crimen",
-        "autor": "Christopher Nolan",
+        "director": "Christopher Nolan",
         "anio": 2008,
         "stock": 6
     },
@@ -51,7 +51,7 @@
         "codigo": "MOV-007",
         "titulo": "Sueño de Fuga",
         "categoria": "Drama",
-        "autor": "Frank Darabont",
+        "director": "Frank Darabont",
         "anio": 1994,
         "stock": 2
     },
@@ -59,7 +59,7 @@
         "codigo": "MOV-008",
         "titulo": "Matrix",
         "categoria": "Ciencia Ficción / Acción",
-        "autor": "Lana y Lilly Wachowski",
+        "director": "Lana y Lilly Wachowski",
         "anio": 1999,
         "stock": 0
     },
@@ -67,7 +67,7 @@
         "codigo": "MOV-009",
         "titulo": "El Resplandor",
         "categoria": "Terror / Psicológico",
-        "autor": "Stanley Kubrick",
+        "director": "Stanley Kubrick",
         "anio": 1980,
         "stock": 1
     },
@@ -75,7 +75,7 @@
         "codigo": "MOV-010",
         "titulo": "El Señor de los Anillos: La Comunidad del Anillo",
         "categoria": "Fantasía / Aventura",
-        "autor": "Peter Jackson",
+        "director": "Peter Jackson",
         "anio": 2001,
         "stock": 7
     },
@@ -83,7 +83,7 @@
         "codigo": "MOV-011",
         "titulo": "El Señor de los Anillos: Las Dos Torres",
         "categoria": "Fantasía / Aventura",
-        "autor": "Peter Jackson",
+        "director": "Peter Jackson",
         "anio": 2002,
         "stock": 4
     },
@@ -91,7 +91,7 @@
         "codigo": "MOV-012",
         "titulo": "El Señor de los Anillos: El Retorno del Rey",
         "categoria": "Fantasía / Aventura",
-        "autor": "Peter Jackson",
+        "director": "Peter Jackson",
         "anio": 2003,
         "stock": 0
     },
@@ -99,7 +99,7 @@
         "codigo": "MOV-013",
         "titulo": "El Padrino",
         "categoria": "Crimen / Drama",
-        "autor": "Francis Ford Coppola",
+        "director": "Francis Ford Coppola",
         "anio": 1972,
         "stock": 5
     },
@@ -107,7 +107,7 @@
         "codigo": "MOV-014",
         "titulo": "Interestelar",
         "categoria": "Ciencia Ficción / Drama",
-        "autor": "Christopher Nolan",
+        "director": "Christopher Nolan",
         "anio": 2014,
         "stock": 8
     },
@@ -115,7 +115,7 @@
         "codigo": "MOV-015",
         "titulo": "El Club de la Pelea",
         "categoria": "Drama / Suspenso",
-        "autor": "David Fincher",
+        "director": "David Fincher",
         "anio": 1999,
         "stock": 0
     },
@@ -123,7 +123,7 @@
         "codigo": "MOV-016",
         "titulo": "Parásitos",
         "categoria": "Comedia Negra / Suspenso",
-        "autor": "Bong Joon-ho",
+        "director": "Bong Joon-ho",
         "anio": 2019,
         "stock": 3
     },
@@ -131,7 +131,7 @@
         "codigo": "MOV-017",
         "titulo": "El Viaje de Chihiro",
         "categoria": "Animación / Fantasía",
-        "autor": "Hayao Miyazaki",
+        "director": "Hayao Miyazaki",
         "anio": 2001,
         "stock": 2
     },
@@ -139,7 +139,7 @@
         "codigo": "MOV-018",
         "titulo": "Parque Jurásico",
         "categoria": "Aventura / Ciencia Ficción",
-        "autor": "Steven Spielberg",
+        "director": "Steven Spielberg",
         "anio": 1993,
         "stock": 0
     },
@@ -147,7 +147,7 @@
         "codigo": "MOV-019",
         "titulo": "Gladiador",
         "categoria": "Acción / Drama Histórico",
-        "autor": "Ridley Scott",
+        "director": "Ridley Scott",
         "anio": 2000,
         "stock": 4
     },
@@ -155,7 +155,7 @@
         "codigo": "MOV-020",
         "titulo": "Bastardos sin Gloria",
         "categoria": "Bélica / Aventura",
-        "autor": "Quentin Tarantino",
+        "director": "Quentin Tarantino",
         "anio": 2009,
         "stock": 3
     }

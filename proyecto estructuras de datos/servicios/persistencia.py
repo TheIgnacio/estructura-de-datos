@@ -7,6 +7,9 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 import json
 from modelo.clientes import Cliente
 
+import json
+from modelo.pelicula import  Pelicula
+
 
 def cargar_clientes(ruta_archivo: str) -> list:
     with open(ruta_archivo, "r", encoding="utf-8") as archivo:
@@ -25,3 +28,20 @@ def cargar_clientes(ruta_archivo: str) -> list:
         catalogo_clientes.append(cliente)
 
     return catalogo_clientes
+
+def cargar_catalogo(ruta_archivo: str) -> list:
+    with open(ruta_archivo, "r", encoding="utf-8") as archivo:
+        datos = json.load(archivo)
+
+    catalogo = []
+    for item in datos:
+        pelicula = Pelicula(
+            titulo=item["titulo"],
+            director=item["director"],
+            anio=item["anio"],
+            genero=item["genero"],
+            disponible=item["disponible"]
+        )
+        catalogo.append(pelicula)
+
+    return catalogo
