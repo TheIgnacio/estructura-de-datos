@@ -238,5 +238,85 @@
         "director": "Christopher Nolan",
         "anio": 2023,
         "stock": 5
+    },
+    {
+        "codigo": "MOV-031",
+        "titulo": "Iron Man",
+        "categoria": "Acción / Superhéroes",
+        "director": "Jon Favreau",
+        "anio": 2008,
+        "stock": 5
+    },
+    {
+        "codigo": "MOV-032",
+        "titulo": "Los Vengadores",
+        "categoria": "Acción / Ciencia Ficción",
+        "director": "Joss Whedon",
+        "anio": 2012,
+        "stock": 4
+    },
+    {
+        "codigo": "MOV-033",
+        "titulo": "Capitán América: El Soldado del Invierno",
+        "categoria": "Acción / Suspenso",
+        "director": "Anthony y Joe Russo",
+        "anio": 2014,
+        "stock": 3
+    },
+    {
+        "codigo": "MOV-034",
+        "titulo": "Guardianes de la Galaxia",
+        "categoria": "Aventura / Ciencia Ficción",
+        "director": "James Gunn",
+        "anio": 2014,
+        "stock": 6
+    },
+    {
+        "codigo": "MOV-035",
+        "titulo": "Capitán América: Civil War",
+        "categoria": "Acción / Superhéroes",
+        "director": "Anthony y Joe Russo",
+        "anio": 2016,
+        "stock": 2
+    },
+    {
+        "codigo": "MOV-036",
+        "titulo": "Thor: Ragnarok",
+        "categoria": "Acción / Comedia",
+        "director": "Taika Waititi",
+        "anio": 2017,
+        "stock": 4
+    },
+    {
+        "codigo": "MOV-037",
+        "titulo": "Pantera Negra",
+        "categoria": "Acción / Aventura",
+        "director": "Ryan Coogler",
+        "anio": 2018,
+        "stock": 5
+    },
+    {
+        "codigo": "MOV-038",
+        "titulo": "Avengers: Infinity War",
+        "categoria": "Acción / Ciencia Ficción",
+        "director": "Anthony y Joe Russo",
+        "anio": 2018,
+        "stock": 7
+    },
+    {
+        "codigo": "MOV-039",
+        "titulo": "Avengers: Endgame",
+        "categoria": "Acción / Ciencia Ficción",
+        "director": "Anthony y Joe Russo",
+        "anio": 2019,
+        "stock": 8
+    },
+    {
+        "codigo": "MOV-040",
+        "titulo": "Spider-Man: Sin Camino a Casa",
+        "categoria": "Acción / Aventura",
+        "director": "Jon Watts",
+        "anio": 2021,
+        "stock": 6
     }
 ]
