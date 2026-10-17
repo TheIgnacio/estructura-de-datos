@@ -158,5 +158,85 @@
         "director": "Quentin Tarantino",
         "anio": 2009,
         "stock": 3
+    },
+    {
+        "codigo": "MOV-021",
+        "titulo": "El Padrino Parte II",
+        "categoria": "Crimen / Drama",
+        "director": "Francis Ford Coppola",
+        "anio": 1974,
+        "stock": 3
+    },
+    {
+        "codigo": "MOV-022",
+        "titulo": "Forrest Gump",
+        "categoria": "Drama / Comedia",
+        "director": "Robert Zemeckis",
+        "anio": 1994,
+        "stock": 5
+    },
+    {
+        "codigo": "MOV-023",
+        "titulo": "Cinema Paradiso",
+        "categoria": "Drama / Romance",
+        "director": "Giuseppe Tornatore",
+        "anio": 1988,
+        "stock": 2
+    },
+    {
+        "codigo": "MOV-024",
+        "titulo": "Blade Runner",
+        "categoria": "Ciencia Ficción / Neo-noir",
+        "director": "Ridley Scott",
+        "anio": 1982,
+        "stock": 4
+    },
+    {
+        "codigo": "MOV-025",
+        "titulo": "Coco",
+        "categoria": "Animación / Fantasía",
+        "director": "Lee Unkrich",
+        "anio": 2017,
+        "stock": 6
+    },
+    {
+        "codigo": "MOV-026",
+        "titulo": "La Vida es Bella",
+        "categoria": "Comedia dramática / Bélica",
+        "director": "Roberto Benigni",
+        "anio": 1997,
+        "stock": 0
+    },
+    {
+        "codigo": "MOV-027",
+        "titulo": "Whiplash",
+        "categoria": "Drama / Música",
+        "director": "Damien Chazelle",
+        "anio": 2014,
+        "stock": 3
+    },
+    {
+        "codigo": "MOV-028",
+        "titulo": "Psicosis",
+        "categoria": "Terror / Suspenso",
+        "director": "Alfred Hitchcock",
+        "anio": 1960,
+        "stock": 2
+    },
+    {
+        "codigo": "MOV-029",
+        "titulo": "Seven",
+        "categoria": "Crimen / Suspenso",
+        "director": "David Fincher",
+        "anio": 1995,
+        "stock": 4
+    },
+    {
+        "codigo": "MOV-030",
+        "titulo": "Oppenheimer",
+        "categoria": "Biográfica / Drama",
+        "director": "Christopher Nolan",
+        "anio": 2023,
+        "stock": 5
     }
 ]

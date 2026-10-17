@@ -92,7 +92,23 @@ while opcion != 0:
 
     elif opcion == 3:
         print()
-        print("agregar pelicula")
+        print("--- Agregar pelicula ---")
+        cod = input("Ingrese codigo de la pelicula")
+        if cod in [p.codigo for p in peliculas]:
+            print("El codigo ya existe")
+            continue
+        else:
+            print("Codigo valido")
+        titulo = input("ingrese titulo de la pelicula")
+        categoria = input("ingrese categoria de la pelicula")
+        autor = input("ingrese autor de la pelicula")
+        try:
+            anio = int(input("ingrese año de estreno de la pelicula"))
+        except ValueError:
+            print("El año debe ser un numero")
+            continue
+        stock = int(input("ingrese stock de la pelicula"))
+
         print()
 
     elif opcion == 4:
