@@ -1,47 +1,70 @@
 class Pelicula:
-    def __init__(self, codigo, titulo,categoria, autor, anio, stock):
+    def __init__(self, codigo, titulo,categoria, director, anio, stock):
 
         if not codigo or not codigo.strip():
             raise ValueError("El código de la película no puede estar vacío.")
-        if not titulo or not titulo.strip():
-            raise ValueError("El título de la película no puede estar vacío.")
-        if stock < 0:
-            raise ValueError("La cantidad no puede ser menor a 0.")
 
-        self._codigo = codigo
-        self._titulo = titulo
-        self._categoria = categoria
-        self._autor = autor
-        self._anio = anio
-        self._stock = stock
+        self.__codigo = codigo
+        self.titulo = titulo
+        self.categoria = categoria
+        self.director = director
+        self.anio = anio
+        self.stock = stock
 
     @property
     def codigo(self):
-        return self._codigo
+        return self.__codigo
     
     @property
     def titulo(self):
-        return self._titulo
+        return self.__titulo 
+    
+    @titulo.setter
+    def titulo(self, nuevo):
+        if not nuevo or not nuevo.strip():
+            raise ValueError("El titulo no puede estar vacio.")
+        self.__titulo = nuevo
 
     @property
     def categoria(self):
-        return self._categoria
+        return self.__categoria
+
+    @categoria.setter
+    def categoria(self, nueva):
+        if not nueva or not nueva.strip():
+            raise ValueError("La categoria no puede estar vacia.")
+        self.__categoria = nueva
 
     @property
-    def autor(self):
-        return self._autor
+    def director(self):
+        return self.__director 
+
+    @director.setter
+    def director(self, nuevo):
+        if not nuevo or not nuevo.strip():
+            raise ValueError("El director no puede estar vacio.")
+        self.__director = nuevo
 
     @property
     def anio(self):
-        return self._anio
+        return self.__anio
+
+    @anio.setter
+    def anio(self, nuevo):
+        if nuevo < 1888:
+            raise ValueError("El año no es valido.")
+        self.__anio = nuevo
 
     @property
     def stock(self):
-        return self._stock
+        return self.__stock
 
     @stock.setter
-    def stock(self, nueva_cantidad: int):
-
+    def stock(self, nueva_cantidad):
         if nueva_cantidad < 0:
             raise ValueError("La cantidad no puede ser menor a 0.")     
-        self._stock = nueva_cantidad
+        self.__stock = nueva_cantidad 
+
+    def __str__(self):
+        return(f"[{self.codigo}] {self.titulo} ({self.anio}) -"
+         f"{self.director} | {self.categoria} | Stock: {self.stock}")

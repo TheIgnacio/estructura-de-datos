@@ -23,7 +23,7 @@ def cargar_peliculas():
                     item["codigo"],
                     item["titulo"],
                     item["categoria"],
-                    item["autor"],
+                    item["director"],
                     item["anio"],
                     item["stock"]
                 )
@@ -68,7 +68,7 @@ while opcion != 0:
         print()
         print("--- Lista de peliculas ---")
         for p in peliculas:
-            print(f"Codigo: [{p.codigo}], Titulo: {p.titulo}, Categoria: {p.categoria}, Autor: {p.autor}, Año: {p.anio}, Stock: {p.stock}")
+            print(f"Codigo: [{p.codigo}], Titulo: {p.titulo}, Categoria: {p.categoria}, Director: {p.director}, Año: {p.anio}, Stock: {p.stock}")
         print()   
  
     
@@ -86,7 +86,7 @@ while opcion != 0:
                     peliculas_encontradas.append(p)
             print(f"Se encontraron {len(peliculas_encontradas)} peliculas en la categoria '{categoria_buscar}':")
             for p in peliculas_encontradas:
-                print(f"Codigo: [{p.codigo}], Titulo: {p.titulo}, Autor: {p.autor}, Año: {p.anio}, Stock: {p.stock}")
+                print(f"Codigo: [{p.codigo}], Titulo: {p.titulo}, Director: {p.director}, Año: {p.anio}, Stock: {p.stock}")
         
         print()
 
