@@ -4,4 +4,4 @@ def main():
 
     catalogo = cargar_catalogo("datos/Peliculas.json")
 
-    menu = Menu(catalogo, archivo_json="datos/Peliculas.json")
+    menu = Menu(catalogo, archivo_json="datos/Peliculas.json") 

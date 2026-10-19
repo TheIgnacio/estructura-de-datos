@@ -1,5 +1,5 @@
 class Pelicula:
-    def __init__(self, codigo, titulo,categoria, director, anio, stock):
+    def __init__(self, codigo, titulo, categoria, subcategoria, director, anio, duracion, stock):
 
         if not codigo or not codigo.strip():
             raise ValueError("El código de la película no puede estar vacío.")
@@ -7,8 +7,10 @@ class Pelicula:
         self.__codigo = codigo
         self.titulo = titulo
         self.categoria = categoria
+        self.subcategoria = subcategoria
         self.director = director
         self.anio = anio
+        self.duracion = duracion
         self.stock = stock
 
     @property
@@ -36,6 +38,16 @@ class Pelicula:
         self.__categoria = nueva
 
     @property
+    def subcategoria(self):
+        return self.__subcategoria
+
+    @subcategoria.setter
+    def subcategoria(self, nueva):
+        if not nueva or not nueva.strip():
+            raise ValueError("La subcategoria no puede estar vacia.")
+        self.__subcategoria = nueva
+
+    @property
     def director(self):
         return self.__director 
 
@@ -56,6 +68,16 @@ class Pelicula:
         self.__anio = nuevo
 
     @property
+    def duracion(self):
+        return self.__duracion
+
+    @duracion.setter
+    def duracion(self, nueva):
+        if nueva <= 0:
+            raise ValueError("La duración no es valida.")
+        self.__duracion = nueva
+
+    @property
     def stock(self):
         return self.__stock
 
@@ -66,5 +88,5 @@ class Pelicula:
         self.__stock = nueva_cantidad 
 
     def __str__(self):
-        return(f"[{self.codigo}] {self.titulo} ({self.anio}) -"
-         f"{self.director} | {self.categoria} | Stock: {self.stock}")
+        return(f"[{self.codigo}] {self.titulo} ({self.anio}) - "
+         f"{self.director} | {self.categoria} ({self.subcategoria}) | Duración: {self.duracion} min | Stock: {self.stock}")

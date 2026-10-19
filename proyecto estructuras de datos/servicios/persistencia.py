@@ -39,6 +39,8 @@ def cargar_catalogo(ruta_archivo: str) -> list:
             titulo=item["titulo"],
             director=item["director"],
             anio=item["anio"],
+            duracion=item["duracion"],
+            stock=item["stock"],
             genero=item["genero"],
             disponible=item["disponible"]
         )
