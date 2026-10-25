@@ -1,7 +1,10 @@
-from servicios.persistencia import cargar_catalogo
-from UX.Menu import Menu
-def main():
+import sys
+from pathlib import Path
 
-    catalogo = cargar_catalogo("datos/Peliculas.json")
+# Agrega la raiz del proyecto al path para que los imports funcionen
+sys.path.append(str(Path(__file__).resolve().parent))
 
-    menu = Menu(catalogo, archivo_json="datos/Peliculas.json") 
+# El menu principal maneja todo el programa
+from UX.Menu import *
+# El menu principal maneja todo el programa
+from UX.Menu import *
