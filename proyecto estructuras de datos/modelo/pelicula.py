@@ -6,17 +6,20 @@ RUTA_peliculas = Path(__file__).resolve().parent.parent / "datos" / "peliculas.j
 
 class Pelicula:
     def __init__(self, codigo, titulo, categoria, subcategoria, director, anio, duracion, stock):
-        if not codigo or not codigo.strip():
+        # Validaciones basicas antes de asignar
+        if not codigo or not str(codigo).strip():
             raise ValueError("El codigo de la pelicula no puede estar vacio.")
 
-        self.__codigo = codigo
-        self.titulo = titulo
-        self.categoria = categoria
-        self.subcategoria = subcategoria   # permite cadena vacia
-        self.director = director
-        self.anio = anio
-        self.duracion = duracion
-        self.stock = stock
+        self.__codigo = str(codigo).strip()
+        self.titulo = titulo           # usa el setter (valida)
+        self.categoria = categoria     # usa el setter (valida)
+        self.subcategoria = subcategoria  # usa el setter (permite vacio)
+        self.director = director       # usa el setter (valida)
+        self.anio = anio               # usa el setter (valida >= 1888)
+        self.duracion = duracion       # usa el setter (valida > 0)
+        self.stock = stock             # usa el setter (valida >= 0)
+
+    # ---------- PROPIEDADES Y SETTERS ----------
 
     @property
     def codigo(self):
@@ -28,9 +31,9 @@ class Pelicula:
 
     @titulo.setter
     def titulo(self, nuevo):
-        if not nuevo or not nuevo.strip():
+        if not nuevo or not str(nuevo).strip():
             raise ValueError("El titulo no puede estar vacio.")
-        self.__titulo = nuevo
+        self.__titulo = str(nuevo).strip()
 
     @property
     def categoria(self):
@@ -38,9 +41,9 @@ class Pelicula:
 
     @categoria.setter
     def categoria(self, nueva):
-        if not nueva or not nueva.strip():
+        if not nueva or not str(nueva).strip():
             raise ValueError("La categoria no puede estar vacia.")
-        self.__categoria = nueva
+        self.__categoria = str(nueva).strip()
 
     @property
     def subcategoria(self):
@@ -48,8 +51,8 @@ class Pelicula:
 
     @subcategoria.setter
     def subcategoria(self, nueva):
-        # La subcategoria puede estar vacia, no es obligatoria
-        self.__subcategoria = nueva if nueva else ""
+        # La subcategoria es opcional, puede estar vacia
+        self.__subcategoria = str(nueva).strip() if nueva else ""
 
     @property
     def director(self):
@@ -57,9 +60,9 @@ class Pelicula:
 
     @director.setter
     def director(self, nuevo):
-        if not nuevo or not nuevo.strip():
+        if not nuevo or not str(nuevo).strip():
             raise ValueError("El director no puede estar vacio.")
-        self.__director = nuevo
+        self.__director = str(nuevo).strip()
 
     @property
     def anio(self):
@@ -68,7 +71,7 @@ class Pelicula:
     @anio.setter
     def anio(self, nuevo):
         if int(nuevo) < 1888:
-            raise ValueError("El anio no es valido.")
+            raise ValueError("El anio no es valido (debe ser >= 1888).")
         self.__anio = int(nuevo)
 
     @property
@@ -78,7 +81,7 @@ class Pelicula:
     @duracion.setter
     def duracion(self, nueva):
         if int(nueva) <= 0:
-            raise ValueError("La duracion no es valida.")
+            raise ValueError("La duracion debe ser mayor a 0.")
         self.__duracion = int(nueva)
 
     @property
@@ -88,10 +91,13 @@ class Pelicula:
     @stock.setter
     def stock(self, nueva_cantidad):
         if int(nueva_cantidad) < 0:
-            raise ValueError("La cantidad no puede ser menor a 0.")
+            raise ValueError("El stock no puede ser negativo.")
         self.__stock = int(nueva_cantidad)
 
+    # ---------- SERIALIZACION ----------
+
     def to_dict(self):
+        """Convierte el objeto Pelicula en un diccionario para guardar en JSON."""
         return {
             "codigo": self.__codigo,
             "titulo": self.__titulo,
@@ -105,7 +111,7 @@ class Pelicula:
 
     @classmethod
     def from_dict(cls, datos: dict):
-        """Crea una Pelicula a partir de un diccionario (leido del .json)"""
+        """Crea un objeto Pelicula a partir de un diccionario (leido del JSON)."""
         return cls(
             codigo=datos["codigo"],
             titulo=datos["titulo"],
@@ -117,8 +123,11 @@ class Pelicula:
             stock=datos["stock"]
         )
 
+    # ---------- PERSISTENCIA ----------
+
     @classmethod
     def cargar_desde_json(cls, ruta=None):
+        """Lee el archivo JSON y devuelve una lista de objetos Pelicula."""
         destino = Path(ruta) if ruta else RUTA_peliculas
         if not destino.exists():
             return []
@@ -128,12 +137,15 @@ class Pelicula:
 
     @classmethod
     def guardar_en_json(cls, lista_peliculas, ruta=None):
+        """Guarda la lista completa de peliculas en el archivo JSON."""
         destino = Path(ruta) if ruta else RUTA_peliculas
         destino.parent.mkdir(parents=True, exist_ok=True)
         with open(destino, "w", encoding="utf-8") as f:
             json.dump([p.to_dict() for p in lista_peliculas], f, indent=4, ensure_ascii=False)
 
+    # ---------- REPRESENTACION ----------
+
     def __str__(self):
-        return (f"[{self.codigo}] {self.titulo} ({self.anio}) - "
-                f"{self.director} | {self.categoria} ({self.subcategoria}) | "
-                f"Duracion: {self.duracion} min | Stock: {self.stock}")
+        return (f"[{self.__codigo}] {self.__titulo} ({self.__anio}) - "
+                f"{self.__director} | {self.__categoria} ({self.__subcategoria}) | "
+                f"Duracion: {self.__duracion} min | Stock: {self.__stock}")
