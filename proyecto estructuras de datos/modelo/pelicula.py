@@ -22,13 +22,13 @@ class Pelicula:
         if not director or not director.strip():
             raise ValueError("El director no puede estar vacio")
 
-        if not anio or not anio.isdigit():
+        if not anio or not str(anio).isdigit():
             raise ValueError ("El año tiene que ser en digitos.")
 
-        if not duracion or not duracion.isdigit():
+        if not duracion or not str(duracion).isdigit():
             raise ValueError ("La duracion tiene que ser en digitos y no numeros negativos.")
 
-        if stock < 0 or not stock.isdigit(): 
+        if int(stock) < 0:
             raise ValueError ("El stock no tiene que ser menor a 0 y tiene que escribirse el digito")
 
 
@@ -180,3 +180,4 @@ class Pelicula:
     def __str__(self):
         return (f"[{self.codigo}] {self.titulo} ({self.anio}) - "
                 f"{self.director} | {self.categoria} ({self.subcategoria}) | Duración: {self.duracion} min | Stock: {self.stock}")
+                
