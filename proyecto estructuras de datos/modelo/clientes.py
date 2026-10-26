@@ -4,6 +4,7 @@ from pathlib import Path
 RUTA_clientes = Path(__file__).resolve().parent.parent / "datos" / "clientes.json"
 
 
+
 class Cliente:
     def __init__(self, nombre, apellido, dni, telefono, direccion, peliculas_reservadas=None):
         if not nombre or not nombre.strip():
