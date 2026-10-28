@@ -273,3 +273,17 @@ if __name__ == "__main__":
         for pel in nodo_sub.elementos:
             print(f"   • [{pel.codigo}] {pel.titulo} ({pel.anio}) - Dir: {pel.director}")
 
+def obtener_o_crear(nodo, nombre):
+    for sub in nodo.subcategorias:
+        if sub.nombre == nombre:
+            return sub  
+    return nodo.agregar_subcategoria(nombre)
+    
+
+def armar_arbol(peliculas):
+    raiz = NodoCategoria("Cine")
+    for p in peliculas:
+        cat = obtener_o_crear(raiz, p.categoria)
+        sub = obtener_o_crear(cat, p.subcategoria)
+        sub.elementos.append(p)
+    return raiz
