@@ -9,6 +9,7 @@ if str(base) not in sys.path:
 from modelo.pelicula import Pelicula
 from modelo.clientes import Cliente
 from estructura.arbol_categorias import armar_arbol
+from estructura.arbol_bst import construir_bst_balanceado, inorden
 
 
 def limpiar_texto(texto):
@@ -43,6 +44,8 @@ def iniciar_menu():
         print("  6. Modificar Pelicula")
         print("  7. Eliminar Cliente")
         print("  8. Explorar por Categorias")
+        print("  9. Listar todo ordenado")
+        print(" 10. Buscar por Codigo (arbol)")
         print()
         print("  0. Salir")
         print("=" * 45)
@@ -255,6 +258,48 @@ def iniciar_menu():
             else:
                 arbol = armar_arbol(peliculas)
                 arbol.mostrar()
+                print()
+
+        # ------------------------------------------------------------------
+        # Mostrar Peliculas Ordenadas por Codigo (BST)
+        # ------------------------------------------------------------------
+        elif opcion == 9:
+            print("\n--- Mostrar Peliculas Ordenadas por Codigo (BST) ---")
+            if not peliculas:
+                print("No hay peliculas cargadas.")
+            else:
+                raiz = construir_bst_balanceado(peliculas, "codigo")
+                for p in inorden(raiz):
+                    print(p)
+            print()
+
+        # ------------------------------------------------------------------
+        # Buscar por codigo
+        # ------------------------------------------------------------------
+        elif opcion == 10:
+            print("\n--- Buscar por Codigo: lista vs arbol ---")
+            if not peliculas:
+                print("No hay peliculas cargadas.")
+            else:
+                codigo = input("Codigo a buscar (ej. Mov-035): ").strip().upper()
+
+                #Busqueda secuencial en lista
+                comps_lista = 0
+                for p in  peliculas:
+                    comps_lista += 1
+                    if p.codigo == codigo:
+                       break
+
+                #Busqueda en arbol
+                raiz = construir_bst_balanceado(peliculas, "codigo")
+                encontrada, comps_arbol = raiz.buscar(codigo)
+
+                if encontrada:
+                    print(encontrada)
+                else:
+                    print("No se encontro la pelicula.")
+                print(f"Comparaciones en lista: {comps_lista}")
+                print(f"Comparaciones en arbol: {comps_arbol}")
                 print()
 
         # ------------------------------------------------------------------
