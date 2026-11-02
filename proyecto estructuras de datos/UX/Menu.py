@@ -10,6 +10,8 @@ from modelo.pelicula import Pelicula
 from modelo.clientes import Cliente
 from estructura.arbol_categorias import armar_arbol
 from estructura.arbol_bst import construir_bst_balanceado, inorden
+from estructura.pila import Pila
+from estructura.cola import Cola
 
 
 def limpiar_texto(texto):
@@ -31,6 +33,9 @@ def iniciar_menu():
     peliculas = Pelicula.cargar_desde_json()
     clientes = Cliente.cargar_desde_json()
 
+    pila_deshacer = Pila()
+    historial = Cola(5)
+
     opcion = -1
     while opcion != 0:
         print("=" * 45)
@@ -46,6 +51,8 @@ def iniciar_menu():
         print("  8. Explorar por Categorias")
         print("  9. Listar todo ordenado")
         print(" 10. Buscar por Codigo (arbol)")
+        print(" 11. Deshacer ultima operacion")
+        print(" 12. Ver historial de peliculas")
         print()
         print("  0. Salir")
         print("=" * 45)
@@ -78,6 +85,7 @@ def iniciar_menu():
             if not cat_buscar:
                 print("La categoria no puede estar vacia.")
             else:
+                historial.encolar(f"Categoria: {cat_buscar}")
                 cat_limpia = limpiar_texto(cat_buscar)
                 encontradas = []
                 comparaciones = 0
@@ -101,6 +109,7 @@ def iniciar_menu():
             if not tit_buscar:
                 print("El titulo no puede estar vacio.")
             else:
+                historial.encolar(f"Titulo: {tit_buscar}")
                 tit_limpio = limpiar_texto(tit_buscar)
                 encontradas = []
                 comparaciones = 0
@@ -145,6 +154,7 @@ def iniciar_menu():
                 nueva = Pelicula(cod, titulo, categoria, subcategoria, director, anio, duracion, stock)
                 peliculas.append(nueva)
                 Pelicula.guardar_en_json(peliculas)
+                pila_deshacer.apilar(("agregar", nueva))
                 print(f"[OK] Pelicula '{titulo}' agregada y guardada con exito.")
             except ValueError as e:
                 print(f"Error al crear pelicula: {e}")
@@ -169,6 +179,7 @@ def iniciar_menu():
                 confirmacion = input("¿Confirma la eliminacion? (s/n): ").strip().lower()
                 if confirmacion == "s":
                     peliculas.remove(pelicula_encontrada)
+                    pila_deshacer.apilar(("eliminar", pelicula_encontrada))
                     Pelicula.guardar_en_json(peliculas)
                     print("[OK] Pelicula eliminada correctamente.")
                 else:
@@ -200,7 +211,7 @@ def iniciar_menu():
                 nuevo_anio = input(f"Nuevo anio [{pelicula_encontrada.anio}]: ").strip()
                 nueva_dur = input(f"Nueva duracion [{pelicula_encontrada.duracion}]: ").strip()
                 nuevo_stock = input(f"Nuevo stock [{pelicula_encontrada.stock}]: ").strip()
-
+                estado_previo = pelicula_encontrada._dict_
                 try:
                     if nuevo_titulo:
                         pelicula_encontrada.titulo = nuevo_titulo
@@ -218,6 +229,7 @@ def iniciar_menu():
                         pelicula_encontrada.stock = int(nuevo_stock)
 
                     Pelicula.guardar_en_json(peliculas)
+                    pila_deshacer.apilar(("modificar", pelicula_encontrada.codigo, estado_previo))
                     print("[OK] Pelicula modificada y guardada correctamente.")
                 except ValueError as e:
                     print(f"Error al modificar: {e}")
@@ -282,6 +294,7 @@ def iniciar_menu():
                 print("No hay peliculas cargadas.")
             else:
                 codigo = input("Codigo a buscar (ej. Mov-035): ").strip().upper()
+                historial.encolar(f"Codigo: {codigo}")
 
                 #Busqueda secuencial en lista
                 comps_lista = 0
@@ -301,6 +314,43 @@ def iniciar_menu():
                 print(f"Comparaciones en lista: {comps_lista}")
                 print(f"Comparaciones en arbol: {comps_arbol}")
                 print()
+
+        # ------------------------------------------------------------------
+        # 11. Deshacer ultima operacion
+        # ------------------------------------------------------------------
+        elif opcion == 11:
+            print("\n--- Deshacer Ultima Operacion ---")
+            if pila_deshacer.esta_vacia():
+                print("No hay operaciones para deshacer.")
+            else:
+                tipo, dato = pila_deshacer.desapilar()
+                if tipo == "agregar":
+                    peliculas.remove(dato)
+                    print(f"Se deshizo el alta de '{dato.titulo}'.")
+                elif tipo == "eliminar":
+                    peliculas.append(dato)
+                    print(f"Se restauro '{dato.titulo}'.")
+                elif tipo == "modificar":
+                    codigo, datos = dato
+                    for i, p in enumerate(peliculas):
+                        if p.codigo == codigo:
+                            peliculas[i] = Pelicula.from_dict(datos)
+                            break
+                    print("Se deshizo la modificacion.")
+                Pelicula.guardar_en_json(peliculas)
+            print()
+
+        # ------------------------------------------------------------------
+        # 12. Ver historial de peliculas
+        # ------------------------------------------------------------------
+        elif opcion == 12:
+            print("\n--- Historial de Peliculas ---")
+            if historial.esta_vacia():
+                print("Todavia no hiciste busquedas.")
+            else:
+                for b in historial.listar():
+                    print(f"-", b)
+            print()
 
         # ------------------------------------------------------------------
         # 0. Salir
