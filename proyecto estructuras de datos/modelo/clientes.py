@@ -5,7 +5,7 @@ RUTA_clientes = Path(__file__).resolve().parent.parent / "datos" / "clientes.jso
 
 
 class Cliente:
-    def __init__(self, nombre, apellido, dni, telefono, direccion, peliculas_reservadas=None):
+    def __init__(self, nombre, apellido, dni, telefono, direccion, peliculas_reservadas=None, usuario="", password="", rol="usuario"):
         if not nombre or not str(nombre).strip():
             raise ValueError("El nombre del cliente no puede estar vacio.")
         if not apellido or not str(apellido).strip():
@@ -23,7 +23,9 @@ class Cliente:
         self.telefono = str(telefono).strip()
         self.direccion = str(direccion).strip()
         self.peliculas_reservadas = list(peliculas_reservadas) if peliculas_reservadas is not None else []
-
+        self.usuario = str(usuario).strip()
+        self.password = str(password).strip()
+        self.rol = str(rol).strip()
     # ---------- METODOS DE NEGOCIO ----------
 
     def datos_clientes(self):
@@ -64,7 +66,10 @@ class Cliente:
             "dni": self.dni,
             "telefono": self.telefono,
             "direccion": self.direccion,
-            "peliculas_reservadas": self.peliculas_reservadas
+            "peliculas_reservadas": self.peliculas_reservadas,
+            "usuario": self.usuario,
+            "password": self.password,
+            "rol": self.rol
         }
 
     @classmethod
@@ -76,7 +81,10 @@ class Cliente:
             dni=datos["dni"],
             telefono=datos["telefono"],
             direccion=datos["direccion"],
-            peliculas_reservadas=datos.get("peliculas_reservadas", [])
+            peliculas_reservadas=datos.get("peliculas_reservadas", []),
+            usuario=datos.get("usuario", ""),
+            password=datos.get("password", ""),
+            rol=datos.get("rol", "usuario")
         )
 
     # ---------- PERSISTENCIA ----------

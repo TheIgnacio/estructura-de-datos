@@ -1,5 +1,16 @@
 [
     {
+        "nombre": "Administrador",
+        "apellido": "General",
+        "dni": "00000000",
+        "telefono": "11-0000-0000",
+        "direccion": "Sede Central Videoclub",
+        "peliculas_reservadas": [],
+        "usuario": "admin",
+        "password": "admin123",
+        "rol": "admin"
+    },
+    {
         "nombre": "Lucas",
         "apellido": "González",
         "dni": "38452109",
@@ -8,7 +19,10 @@
         "peliculas_reservadas": [
             "MOV-001",
             "MOV-006"
-        ]
+        ],
+        "usuario": "lucas",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Martina",
@@ -16,7 +30,10 @@
         "dni": "41235678",
         "telefono": "11-6234-1189",
         "direccion": "Calle Mitre 830, Buenos Aires",
-        "peliculas_reservadas": []
+        "peliculas_reservadas": [],
+        "usuario": "martina.rodriguez",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Santiago",
@@ -26,7 +43,10 @@
         "direccion": "Belgrano 450, Buenos Aires",
         "peliculas_reservadas": [
             "MOV-014"
-        ]
+        ],
+        "usuario": "santiago.fernandez",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Camila",
@@ -34,7 +54,10 @@
         "dni": "43567890",
         "telefono": "11-5874-9023",
         "direccion": "Rivadavia 2105, Buenos Aires",
-        "peliculas_reservadas": []
+        "peliculas_reservadas": [],
+        "usuario": "camila.lopez",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Agustín",
@@ -46,7 +69,10 @@
             "MOV-002",
             "MOV-004",
             "MOV-010"
-        ]
+        ],
+        "usuario": "agustin.martinez",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Valentina",
@@ -54,7 +80,10 @@
         "dni": "42109876",
         "telefono": "11-7654-3209",
         "direccion": "Sarmiento 675, Buenos Aires",
-        "peliculas_reservadas": []
+        "peliculas_reservadas": [],
+        "usuario": "valentina.diaz",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Joaquín",
@@ -64,7 +93,10 @@
         "direccion": "Colón 980, Buenos Aires",
         "peliculas_reservadas": [
             "MOV-013"
-        ]
+        ],
+        "usuario": "joaquin.perez",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Sofía",
@@ -72,7 +104,10 @@
         "dni": "44321654",
         "telefono": "11-6789-0145",
         "direccion": "España 315, Buenos Aires",
-        "peliculas_reservadas": []
+        "peliculas_reservadas": [],
+        "usuario": "sofia.romero",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Mateo",
@@ -83,7 +118,10 @@
         "peliculas_reservadas": [
             "MOV-003",
             "MOV-019"
-        ]
+        ],
+        "usuario": "mateo.alvarez",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Lucía",
@@ -91,7 +129,10 @@
         "dni": "42876543",
         "telefono": "11-3210-9845",
         "direccion": "Independencia 1540, Buenos Aires",
-        "peliculas_reservadas": []
+        "peliculas_reservadas": [],
+        "usuario": "lucia.torres",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Nicolás",
@@ -101,7 +142,10 @@
         "direccion": "Urquiza 310, Buenos Aires",
         "peliculas_reservadas": [
             "MOV-020"
-        ]
+        ],
+        "usuario": "nicolas.flores",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Julieta",
@@ -109,7 +153,10 @@
         "dni": "45123987",
         "telefono": "11-7890-1234",
         "direccion": "Lavalle 1890, Buenos Aires",
-        "peliculas_reservadas": []
+        "peliculas_reservadas": [],
+        "usuario": "julieta.benitez",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Tomás",
@@ -120,7 +167,10 @@
         "peliculas_reservadas": [
             "MOV-007",
             "MOV-016"
-        ]
+        ],
+        "usuario": "tomas.acosta",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Micaela",
@@ -128,7 +178,10 @@
         "dni": "41987654",
         "telefono": "11-5678-2341",
         "direccion": "Chacabuco 425, Buenos Aires",
-        "peliculas_reservadas": []
+        "peliculas_reservadas": [],
+        "usuario": "micaela.castro",
+        "password": "123",
+        "rol": "usuario"
     },
     {
         "nombre": "Facundo",
@@ -138,6 +191,9 @@
         "direccion": "Roca 1150, Buenos Aires",
         "peliculas_reservadas": [
             "MOV-011"
-        ]
+        ],
+        "usuario": "facundo.medina",
+        "password": "123",
+        "rol": "usuario"
     }
 ]
