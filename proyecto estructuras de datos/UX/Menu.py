@@ -624,7 +624,7 @@ def iniciar_menu():
             print("\nGracias por usar el sistema del Videoclub. ¡Hasta pronto!")
 
         else:
-            print("\nOpcion no valida. Intente nuevamente.")
+            print("\nOpcion no valida. Intente Nuevamente.")
 
 
 if __name__ == "__main__":
