@@ -281,7 +281,7 @@ def menu_administrador(peliculas, clientes):
         # 9. Listar todo ordenado (BST inorden)
         elif opcion == 9:
             print("\n--- Catalogo Ordenado por Codigo (BST) ---")
-            arbol_bst = construir_bst_balanceado(peliculas)
+            arbol_bst = construir_bst_balanceado(peliculas, "codigo")
             catalogo_ordenado = inorden(arbol_bst)
             for p in catalogo_ordenado:
                 print(f"[{p.codigo}] {p.titulo} ({p.anio}) - Stock: {p.stock}")
@@ -292,7 +292,7 @@ def menu_administrador(peliculas, clientes):
         elif opcion == 10:
             print("\n--- Buscar Pelicula por Codigo (BST) ---")
             codigo_buscar = input("Ingrese codigo a buscar: ").strip().upper()
-            arbol_bst = construir_bst_balanceado(peliculas)
+            arbol_bst = construir_bst_balanceado(peliculas, "codigo")
             resultado, pasos = arbol_bst.buscar(codigo_buscar)
             if resultado:
                 print(f"\n[OK] Pelicula encontrada en {pasos} paso(s):")
