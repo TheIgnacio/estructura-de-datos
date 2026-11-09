@@ -316,7 +316,7 @@ def menu_administrador(peliculas, clientes):
                 accion, obj = pila_deshacer.desapilar()
                 if accion == "agregar":
                     peliculas.remove(obj)
-                    print(f"Se desizo la creacion de la pelicula: {obj.titulo}")
+                    print(f"Se deshizo la creacion de la pelicula: {obj.titulo}")
                 elif accion == "eliminar":
                     peliculas.append(obj)
                     print(f"Se restauro la pelicula: {obj.titulo}")
