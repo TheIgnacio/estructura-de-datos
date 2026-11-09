@@ -58,9 +58,16 @@ class NodoCategoria:
             sub.mostrar(nivel + 1)
 
     def buscar_categoria(self, nombre_buscado: str) -> "NodoCategoria | None":
-       
-        # Caso base: este nodo es el buscado
-        if self.nombre.lower() == nombre_buscado.lower():
+
+        # Normaliza texto: minúsculas y sin tildes para comparar
+        def _limpiar(t):
+            t = t.lower()
+            for orig, rep in {"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ñ": "n"}.items():
+                t = t.replace(orig, rep)
+            return t
+
+        # Caso base: este nodo es el buscado (ignora tildes y mayúsculas)
+        if _limpiar(self.nombre) == _limpiar(nombre_buscado):
             return self
 
         # Caso recursivo: buscar en cada subárbol hijo
@@ -273,14 +280,25 @@ if __name__ == "__main__":
         for pel in nodo_sub.elementos:
             print(f"   • [{pel.codigo}] {pel.titulo} ({pel.anio}) - Dir: {pel.director}")
 
+def _limpiar_nombre(t):
+    """Normaliza texto para comparaciones: minúsculas y sin tildes."""
+    t = t.lower()
+    for orig, rep in {"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ñ": "n"}.items():
+        t = t.replace(orig, rep)
+    return t
+
+
 def obtener_o_crear(nodo, nombre):
+    """Busca un hijo con ese nombre (sin importar tildes ni mayúsculas) o lo crea."""
+    nombre_limpio = _limpiar_nombre(nombre)
     for sub in nodo.subcategorias:
-        if sub.nombre == nombre:
-            return sub  
+        if _limpiar_nombre(sub.nombre) == nombre_limpio:
+            return sub
     return nodo.agregar_subcategoria(nombre)
-    
+
 
 def armar_arbol(peliculas):
+    """Construye el árbol de categorías a partir de la lista de películas."""
     raiz = NodoCategoria("Cine")
     for p in peliculas:
         cat = obtener_o_crear(raiz, p.categoria)
