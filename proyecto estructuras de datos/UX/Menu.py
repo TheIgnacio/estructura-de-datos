@@ -433,7 +433,7 @@ def menu_usuario(cliente_actual: Cliente, peliculas, clientes):
         elif opcion == 5:
             print("\n--- Buscar por Codigo (BST) ---")
             cod_buscar = input("Codigo (ej: MOV-001): ").strip().upper()
-            arbol_bst = construir_bst_balanceado(peliculas)
+            arbol_bst = construir_bst_balanceado(peliculas, clave="codigo")
             resultado, pasos = arbol_bst.buscar(cod_buscar)
             if resultado:
                 print(f"\n[OK] Encontrada en {pasos} paso(s):")
