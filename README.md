@@ -4,7 +4,7 @@
 
 Sistema de gestión de un videoclub desarrollado en Python como aplicación de consola.
 
-Permite administrar un catálogo de películas y clientes, organizar las películas por categorías y realizar búsquedas mediante estructuras de datos. La información se almacena en archivos JSON, por lo que se conserva al cerrar el programa.
+Permite administrar un catálogo de películas y clientes, organizar las películas por categorías, buscar mediante estructuras de datos y reservar películas desde una cuenta de usuario. El sistema tiene inicio de sesión con dos roles (administrador y usuario) y guarda la información en archivos JSON.
 
 Trabajo final de la materia **Estructuras de Datos — UNaB**.
 
@@ -66,25 +66,59 @@ python estructura/pila.py
 python estructura/cola.py
 ```
 
-## 📋 Menú del programa
+## 🔐 Acceso al sistema
+
+Al iniciar, el programa ofrece:
 
 | Opción | Acción |
 |---|---|
-| 1 | Ver lista de películas |
-| 2 | Buscar por categoría (cuenta las comparaciones) |
-| 3 | Buscar por título (cuenta las comparaciones) |
-| 4 | Agregar película |
-| 5 | Eliminar película |
-| 6 | Modificar película |
-| 7 | Eliminar cliente |
-| 8 | Explorar por categorías (árbol de categorías) |
+| 1 | Iniciar sesión (3 intentos) |
+| 2 | Registrarse como nuevo cliente |
 | 0 | Salir |
 
-Las altas, bajas y modificaciones se guardan automáticamente en los archivos JSON.
+El menú que se muestra depende del rol de la cuenta: **administrador** o **usuario**. El registro crea cuentas con rol de usuario y valida que el DNI y el nombre de usuario no estén repetidos.
+
+## 📋 Menús del programa
+
+### Menú de administrador
+
+| Opción | Acción | Estructura |
+|---|---|---|
+| 1 | Ver lista de películas | Lista |
+| 2 | Buscar por categoría, sin distinguir tildes ni mayúsculas (cuenta las comparaciones) | Búsqueda secuencial |
+| 3 | Buscar por título (cuenta las comparaciones) | Búsqueda secuencial |
+| 4 | Agregar película | Lista |
+| 5 | Eliminar película | Lista |
+| 6 | Modificar película | Lista |
+| 7 | Eliminar cliente | Lista |
+| 8 | Explorar por categorías | Árbol general |
+| 9 | Listar todo ordenado por código | BST, recorrido inorden |
+| 10 | Buscar por código (informa los pasos) | BST balanceado |
+| 11 | Deshacer la última operación | Pila |
+| 12 | Ver historial de consultas | Cola |
+| 0 | Cerrar sesión | — |
+
+### Menú de usuario
+
+| Opción | Acción | Estructura |
+|---|---|---|
+| 1 | Ver el catálogo completo | Lista |
+| 2 | Buscar por título | Búsqueda secuencial |
+| 3 | Buscar por categoría, sin distinguir tildes ni mayúsculas | Búsqueda secuencial |
+| 4 | Explorar el catálogo por categorías | Árbol general |
+| 5 | Buscar por código | BST balanceado |
+| 6 | Reservar una película | Lista |
+| 7 | Ver mis películas reservadas | Lista |
+| 8 | Cancelar una reserva | Lista |
+| 9 | Ver mis datos de perfil | — |
+| 10 | Ver mi historial de consultas | Cola |
+| 0 | Cerrar sesión | — |
+
+Las altas, bajas, modificaciones y reservas se guardan automáticamente en los archivos JSON. Al reservar una película se descuenta una unidad de stock, y al cancelar la reserva se devuelve.
 
 ## 🗂️ Estructura del proyecto
 
-El proyecto está organizado en módulos para separar la interfaz de usuario, los modelos, las estructuras de datos y los archivos de información.
+El proyecto está organizado en módulos para separar la interfaz de usuario, los modelos, las estructuras de datos, los servicios y los archivos de información.
 
 ```text
 estructura-de-datos/
@@ -92,6 +126,7 @@ estructura-de-datos/
 ├── README.md
 ├── USO-DE-IA.md
 └── proyecto estructuras de datos/
+    ├── .gitignore
     ├── main.py
     ├── UX/
     │   ├── __init__.py
@@ -111,7 +146,8 @@ estructura-de-datos/
     │   └── pelicula.py
     └── servicios/
         ├── __init__.py
-        └── persistencia.py
+        ├── persistencia.py
+        └── verificacion.py
 ```
 
 ### Descripción de los archivos y carpetas
@@ -119,18 +155,19 @@ estructura-de-datos/
 | Archivo o carpeta | Descripción |
 |---|---|
 | `main.py` | Punto de entrada del programa. |
-| `UX/Menu.py` | Menú de consola y la interacción con el usuario. |
+| `UX/Menu.py` | Pantalla de acceso, menú de administrador y menú de usuario. |
 | `modelo/pelicula.py` | Clase `Pelicula`: atributos privados con `@property`, validaciones, y carga y guardado en JSON. |
-| `modelo/clientes.py` | Clase `Cliente`: datos, reservas de películas, y carga y guardado en JSON. |
+| `modelo/clientes.py` | Clase `Cliente`: datos, usuario, rol, reservas, y carga y guardado en JSON. |
 | `estructura/arbol_categorias.py` | Árbol general de categorías y subcategorías. |
 | `estructura/arbol_bst.py` | Árbol binario de búsqueda, recorridos y comparación de eficiencia. |
 | `estructura/pila.py` | Pila implementada con nodos enlazados. |
 | `estructura/cola.py` | Cola implementada con nodos enlazados y tamaño máximo. |
+| `servicios/verificacion.py` | Autenticación de usuarios y registro de nuevos clientes. |
 | `servicios/persistencia.py` | Funciones de carga de datos de la primera versión. Hoy la lectura y el guardado se hacen desde las clases `Pelicula` y `Cliente`. |
 | `datos/peliculas.json` | Catálogo de 40 películas. |
-| `datos/clientes.json` | Datos de los clientes y sus reservas. |
+| `datos/clientes.json` | Datos de los clientes, sus cuentas y sus reservas. |
 | `USO-DE-IA.md` | Detalle del uso de herramientas de inteligencia artificial. |
-| `.gitignore` | Indica qué archivos y carpetas debe ignorar Git. |
+| `.gitignore` | Indica qué archivos y carpetas debe ignorar Git (por ejemplo, las carpetas `__pycache__`). |
 
 ## ⚙️ Funcionalidades del sistema
 
@@ -143,14 +180,16 @@ Los estados indican el avance del proyecto y se actualizan a medida que se compl
 | Contabilizar comparaciones en las búsquedas | Contador de comparaciones | Implementado |
 | Agregar, eliminar y modificar películas (con validaciones) | Lista | Implementado |
 | Guardar y cargar información | Archivos JSON | Implementado |
+| Inicio de sesión con roles y registro de clientes | Lista y archivos JSON | Implementado |
+| Reservar y cancelar películas, con control de stock | Lista | Implementado |
 | Eliminar clientes | Lista | Implementado |
 | Explorar películas por categorías | Árbol general | Implementado |
-| Buscar películas por código | Árbol binario de búsqueda | Módulo implementado; falta integrarlo al menú |
-| Obtener un listado ordenado | Recorrido inorden del árbol | Módulo implementado; falta integrarlo al menú |
-| Comparar la eficiencia de búsquedas | Lista y árboles | Implementado en `arbol_bst.py`; falta integrarlo al menú |
-| Deshacer la última operación | Pila | Clase implementada; falta integrarla al menú |
-| Historial de las últimas búsquedas | Cola | Clase implementada; falta integrarla al menú |
-| Agregar y modificar clientes, gestionar reservas | Lista | Pendiente |
+| Buscar películas por código | Árbol binario de búsqueda | Implementado |
+| Obtener un listado ordenado | Recorrido inorden del árbol | Implementado |
+| Comparar la eficiencia de búsquedas | Lista y árboles | Implementado en `arbol_bst.py` |
+| Deshacer la última operación sobre películas | Pila | Implementado |
+| Historial de las últimas consultas | Cola | Implementado |
+| Modificar los datos de un cliente | Lista | Pendiente |
 | Consultar clientes morosos | Lista | Pendiente |
 
 ## 🧱 Estructuras de datos utilizadas
@@ -178,7 +217,7 @@ La búsqueda secuencial examina los elementos hasta encontrar el buscado o llega
 **Aplicación en el proyecto:**
 
 - Organizar películas por categoría y subcategoría.
-- Mostrar el árbol desde la opción 8 del menú, con la cantidad de películas de cada subcategoría.
+- Mostrar el árbol desde el menú, con la cantidad de películas de cada subcategoría.
 - Buscar categorías y calcular la altura del árbol.
 
 Jerarquía de categorías:
@@ -216,10 +255,10 @@ Cine
 
 **Aplicación en el proyecto:**
 
-- Buscar películas por código contando las comparaciones realizadas.
-- Obtener un listado ordenado mediante el recorrido inorden (también hay preorden y postorden).
+- Buscar películas por código e informar cuántos pasos se necesitaron.
+- Obtener un listado ordenado por código mediante el recorrido inorden (también hay preorden y postorden).
 - Calcular la altura y la cantidad de nodos.
-- Construir árboles por inserción sucesiva y árboles balanceados.
+- Construir árboles por inserción sucesiva y árboles balanceados. El menú utiliza el balanceado.
 
 #### Comparación de eficiencia
 
@@ -231,7 +270,7 @@ Los códigos del catálogo ya vienen ordenados (`MOV-001` a `MOV-040`), por lo q
 | BST sin balancear | 39 | 35 |
 | BST balanceado | 5 | 5 |
 
-Un árbol binario de búsqueda solo es eficiente si está equilibrado. Con 40 elementos, el árbol balanceado pasa de 35 a 5 comparaciones, aproximadamente log₂(40).
+Un árbol binario de búsqueda solo es eficiente si está equilibrado. Con 40 elementos, el árbol balanceado pasa de 35 a 5 comparaciones, aproximadamente log₂(40). Por eso el menú arma el árbol balanceado antes de buscar.
 
 ### 4. Pila
 
@@ -239,10 +278,12 @@ Un árbol binario de búsqueda solo es eficiente si está equilibrado. Con 40 el
 
 **Descripción:** estructura LIFO (*Last In, First Out*), en la que el último elemento agregado es el primero en salir. Está implementada con nodos enlazados: `apilar`, `desapilar`, `ver_tope`, `esta_vacia` y `tamanio`.
 
-**Aplicación prevista:**
+**Aplicación en el proyecto:**
 
-- Registrar las últimas operaciones realizadas.
-- Deshacer la última operación, conservando la información necesaria para revertirla.
+- Cada alta, baja o modificación de una película que hace el administrador se apila junto con la información necesaria para revertirla.
+- La opción "Deshacer la última operación" desapila la acción más reciente y la revierte: quita la película agregada, restaura la eliminada o recupera los datos anteriores de la modificada.
+
+Se eligió una pila porque lo último que se hizo es lo primero que se debe deshacer.
 
 ### 5. Cola
 
@@ -250,30 +291,36 @@ Un árbol binario de búsqueda solo es eficiente si está equilibrado. Con 40 el
 
 **Descripción:** estructura FIFO (*First In, First Out*), en la que el primer elemento agregado es el primero en salir. Está implementada con nodos enlazados y un tamaño máximo: al superarlo, se descarta el elemento más antiguo.
 
-**Aplicación prevista:**
+**Aplicación en el proyecto:**
 
-- Guardar el historial de las últimas búsquedas, conservando solo las más recientes.
+- Guardar el historial de las últimas 5 películas consultadas por cada sesión.
+- Al llenarse, la consulta más antigua se descarta para dar lugar a la más reciente.
 
 ## 💾 Persistencia de datos
 
 El proyecto utiliza archivos JSON para almacenar información entre ejecuciones.
 
 - `peliculas.json`: datos del catálogo de películas.
-- `clientes.json`: datos de los clientes y sus reservas.
+- `clientes.json`: datos de los clientes, sus cuentas y sus reservas.
 - Las clases `Pelicula` y `Cliente` incluyen los métodos para convertirse a diccionario y para cargarse y guardarse en JSON.
 
-Cada alta, baja o modificación realizada desde el menú se guarda en el archivo correspondiente.
+Cada alta, baja, modificación o reserva realizada desde el menú se guarda en el archivo correspondiente.
+
+**Limitación conocida:** las contraseñas se guardan en texto plano en `clientes.json`. Es una simplificación válida para un trabajo académico; en un sistema real deberían almacenarse con un hash.
 
 ## 🧪 Pruebas recomendadas
 
-- Listar las películas disponibles.
-- Buscar un título existente y otro inexistente.
-- Agregar una película, cerrar el programa, volver a abrirlo y comprobar que sigue en el catálogo.
+- Iniciar sesión con credenciales incorrectas y comprobar que se bloquea al tercer intento.
+- Registrar un cliente nuevo e intentar repetir el DNI o el usuario.
+- Como administrador: agregar, modificar y eliminar una película, y deshacer cada operación.
 - Intentar agregar un código repetido y datos inválidos (texto en el año, año menor a 1888).
-- Modificar y eliminar una película.
-- Explorar las categorías y comprobar la cantidad de películas de cada una.
+- Cerrar el programa, volver a abrirlo y comprobar que los cambios se conservan.
+- Buscar por código con el BST y comparar los pasos con la búsqueda secuencial.
+- Consultar varias películas y revisar que el historial conserve solo las últimas 5.
+- Como usuario: reservar una película, comprobar que baja el stock, intentar reservarla otra vez y cancelarla.
+- Intentar reservar una película sin stock.
 - Ejecutar los módulos de árboles, pila y cola y revisar los resultados.
-- Ingresar texto en lugar de un número en el menú.
+- Ingresar texto en lugar de un número en los menús.
 
 ## 📚 Contexto académico
 
@@ -289,4 +336,4 @@ Detallado en `USO-DE-IA.md`.
 
 **En desarrollo.**
 
-Funcionan la gestión de películas, el guardado en JSON, la eliminación de clientes y la exploración por categorías. Queda integrar al menú el árbol binario de búsqueda, la pila y la cola, completar la gestión de clientes (alta, modificación, reservas y morosos) y realizar pruebas del funcionamiento completo.
+Funcionan el inicio de sesión con roles, la gestión de películas y reservas, el guardado en JSON y las cuatro estructuras (listas, árboles, pila y cola) integradas al menú. Queda completar la gestión de clientes (modificar datos y consultar morosos) y realizar pruebas del funcionamiento completo.
