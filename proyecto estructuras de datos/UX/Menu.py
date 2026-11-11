@@ -150,7 +150,7 @@ def menu_administrador(peliculas, clientes):
         print(" 10. Buscar por Codigo (BST)")
         print(" 11. Deshacer ultima operacion (Pila)")
         print(" 12. Ver historial de consultas (Cola)")
-        print(" 13. Gestionar Recargos por Devolucion Tardia") # <-- NUEVO TUYO IGUAL A LA 13 DE MARIANA
+        print(" 13. Gestionar Recargos por Devolucion Tardia")
         print()
         print("  0. Cerrar Sesion")
         print("=" * 48)
