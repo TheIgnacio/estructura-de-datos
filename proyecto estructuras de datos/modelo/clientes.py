@@ -5,7 +5,7 @@ from datetime import datetime
 RUTA_clientes = Path(__file__).resolve().parent.parent / "datos" / "clientes.json"
 
 class Cliente:
-    def __init__(self, nombre, apellido, dni, telefono, direccion, peliculas_reservadas=None, usuario="", password="", rol="usuario", fecha_limite="", recargo_acumulado=0):
+    def __init__(self, nombre, apellido, dni, telefono, direccion, peliculas_reservadas=None, usuario="", password="", rol="usuario"):
         if not nombre or not str(nombre).strip():
             raise ValueError("El nombre del cliente no puede estar vacio.")
         if not apellido or not str(apellido).strip():
@@ -26,15 +26,10 @@ class Cliente:
         self.usuario = str(usuario).strip()
         self.password = str(password).strip()
         self.rol = str(rol).strip()
-        # --- NUEVO ATRIBUTO RECARGO ---
-        self.fecha_limite = str(fecha_limite).strip()
-        self.recargo_acumulado = int(recargo_acumulado)
-
     # ---------- METODOS DE NEGOCIO ----------
 
     def datos_clientes(self):
         """Devuelve un string con los datos principales del cliente."""
-        estado = f" [RECARGO: ${self.recargo_acumulado} - Vence: {self.fecha_limite}]" if self.recargo_acumulado > 0 else ""
         return (f"Nombre: {self._nombre}, Apellido: {self._apellido}, "
                 f"DNI: {self.dni}, Telefono: {self.telefono}, Direccion: {self.direccion}{estado}")
 
@@ -87,9 +82,7 @@ class Cliente:
             "peliculas_reservadas": self.peliculas_reservadas,
             "usuario": self.usuario,
             "password": self.password,
-            "rol": self.rol,
-            "fecha_limite": self.fecha_limite,
-            "recargo_acumulado": self.recargo_acumulado
+            "rol": self.rol
         }
 
     @classmethod
@@ -104,9 +97,7 @@ class Cliente:
             peliculas_reservadas=datos.get("peliculas_reservadas", []),
             usuario=datos.get("usuario", ""),
             password=datos.get("password", ""),
-            rol=datos.get("rol", "usuario"),
-            fecha_limite=datos.get("fecha_limite", ""),
-            recargo_acumulado=datos.get("recargo_acumulado", 0)
+            rol=datos.get("rol", "usuario")
         )
 
     # ---------- PERSISTENCIA ----------

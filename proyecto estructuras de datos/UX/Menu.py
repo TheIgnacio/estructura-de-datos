@@ -25,107 +25,6 @@ def limpiar_texto(texto):
 
 cargar_peliculas = Pelicula.cargar_desde_json
 
-# ====================================================================== #
-#  GESTIÓN DE RECARGOS POR DEVOLUCIÓN TARDÍA - CARY                      #
-# ====================================================================== #
-def gestionar_recargos(clientes):
-    """Permite al administrador ver recargos, agregar o condonar - igual a lista negra de Mariana"""
-    VALOR_DIA = 500
-    subopcion = -1
-    while subopcion != 0:
-        print("\n" + "=" * 50)
-        print("     GESTION DE RECARGOS POR DEVOLUCION TARDIA")
-        print("=" * 50)
-        print("  1. Ver clientes con Recargo")
-        print("  2. Calcular recargo manual por dias de atraso")
-        print("  3. Condonar recargo (quitar deuda)")
-        print()
-        print("  0. Volver al Panel de Administrador")
-        print("=" * 50)
-        try:
-            subopcion = int(input("Seleccione una opcion: "))
-        except ValueError:
-            print("\n[!] Debe ingresar un numero valido.")
-            continue
-
-        if subopcion == 1:
-            print("\n--- Clientes con Recargo ---")
-            con_recargo = [c for c in clientes if c.recargo_acumulado > 0]
-            if not con_recargo:
-                print("Actualmente no hay clientes con recargo.")
-            else:
-                print(f"Total con recargo: {len(con_recargo)}")
-                for c in con_recargo:
-                    dias = c.calcular_dias_atraso()
-                    print(f"  • DNI: {c.dni:<10} | {c._nombre} {c._apellido:<15} | Debe: ${c.recargo_acumulado} | Vence: {c.fecha_limite} | Atraso hoy: {dias} dias")
-            print()
-
-        elif subopcion == 2:
-            print("\n--- Calcular Recargo Manual ---")
-            busqueda = input("Ingrese DNI o Usuario del cliente: ").strip()
-            if not busqueda:
-                print("El dato no puede estar vacio.")
-                continue
-            cliente_target = None
-            for c in clientes:
-                if c.dni == busqueda or c.usuario.lower() == busqueda.lower():
-                    cliente_target = c
-                    break
-            if cliente_target is None:
-                print(f"No se encontro cliente '{busqueda}'.")
-            else:
-                try:
-                    dias = int(input(f"Ingrese dias de atraso para {cliente_target._nombre} (valor ${VALOR_DIA} x dia): "))
-                    if dias <=0:
-                        print("Los dias deben ser mayor a 0")
-                        continue
-                    recargo = dias * VALOR_DIA
-                    print(f"Calculo: {dias} dias x ${VALOR_DIA} = ${recargo}")
-                    conf = input(f"¿Confirmar recargo de ${recargo} a {cliente_target._nombre}? (s/n): ").lower()
-                    if conf == "s":
-                        cliente_target.recargo_acumulado += recargo
-                        # Si no tiene fecha, le ponemos hoy como vencida
-                        if not cliente_target.fecha_limite:
-                            cliente_target.fecha_limite = datetime.now().strftime("%d/%m/%Y")
-                        Cliente.guardar_en_json(clientes)
-                        print(f"[OK] Recargo aplicado. Total adeudado: ${cliente_target.recargo_acumulado}")
-                    else:
-                        print("Operacion cancelada")
-                except ValueError:
-                    print("Debe ingresar un numero")
-            print()
-
-        elif subopcion == 3:
-            print("\n--- Condonar Recargo ---")
-            busqueda = input("Ingrese DNI o Usuario del cliente a condonar: ").strip()
-            if not busqueda:
-                print("El dato no puede estar vacio.")
-                continue
-            cliente_target = None
-            for c in clientes:
-                if c.dni == busqueda or c.usuario.lower() == busqueda.lower():
-                    cliente_target = c
-                    break
-            if cliente_target is None:
-                print(f"No se encontro cliente '{busqueda}'.")
-            elif cliente_target.recargo_acumulado == 0:
-                print(f"{cliente_target._nombre} no tiene recargos pendientes.")
-            else:
-                print(f"Cliente: {cliente_target._nombre} {cliente_target._apellido} | Debe: ${cliente_target.recargo_acumulado}")
-                conf = input("¿Confirmar condonacion total? (s/n): ").lower()
-                if conf == "s":
-                    cliente_target.recargo_acumulado = 0
-                    cliente_target.fecha_limite = ""
-                    Cliente.guardar_en_json(clientes)
-                    print(f"[OK] Recargo condonado para {cliente_target._nombre}")
-                else:
-                    print("Operacion cancelada")
-            print()
-
-        elif subopcion == 0:
-            print("\nVolviendo al Panel...")
-        else:
-            print("\nOpcion no valida")
 
 # ====================================================================== #
 #  MENÚ DE ADMINISTRADOR                                                  #
@@ -150,7 +49,6 @@ def menu_administrador(peliculas, clientes):
         print(" 10. Buscar por Codigo (BST)")
         print(" 11. Deshacer ultima operacion (Pila)")
         print(" 12. Ver historial de consultas (Cola)")
-        print(" 13. Gestionar Recargos por Devolucion Tardia")
         print()
         print("  0. Cerrar Sesion")
         print("=" * 48)
@@ -376,8 +274,7 @@ def menu_administrador(peliculas, clientes):
             else:
                 for b in historial.listar(): print(f"- {b}")
             print()
-        elif opcion == 13:
-            gestionar_recargos(clientes)
+
         elif opcion == 0:
             print("\nCerrando sesion de Administrador...")
 
@@ -460,11 +357,7 @@ def menu_usuario(cliente_actual: Cliente, peliculas, clientes):
             print()
         elif opcion == 6:
             print("\n--- Reservar Pelicula ---")
-            if cliente_actual.recargo_acumulado > 0:
-                print(f"[!] Tenes un recargo pendiente de ${cliente_actual.recargo_acumulado}. No podes reservar hasta pagar.")
-                print()
-                continue
-            cod_reserva = input("Codigo de pelicula a reservar: ").strip().upper()
+            cod_reserva = input("Ingrese el codigo de la pelicula a reservar: ").strip().upper()
             pelicula_target = None
             for p in peliculas:
                 if p.codigo == cod_reserva:
@@ -535,7 +428,9 @@ def menu_usuario(cliente_actual: Cliente, peliculas, clientes):
                                 cliente_actual.fecha_limite = ""
                         Cliente.guardar_en_json(clientes)
                         Pelicula.guardar_en_json(peliculas)
-                    else: print("Cancelada")
+                        print("[OK] Reserva cancelada y stock restaurado correctamente.")
+                    else:
+                        print("Operacion cancelada.")
             print()
         elif opcion == 9:
             print("\n--- Mi Perfil ---")
@@ -590,6 +485,7 @@ def iniciar_menu():
                     intentos -= 1
                     print("[-] Usuario o contrasenia incorrectos.")
             if cliente_logeado is not None:
+                # Verificación de rol para bifurcar al menú correspondiente
                 if cliente_logeado.rol.lower() == "admin":
                     menu_administrador(peliculas, clientes)
                 else:
