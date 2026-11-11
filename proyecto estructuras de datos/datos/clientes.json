@@ -8,7 +8,8 @@
         "peliculas_reservadas": [],
         "usuario": "admin",
         "password": "admin123",
-        "rol": "admin"
+        "rol": "admin",
+        "bloqueado": false
     },
     {
         "nombre": "Lucas",
@@ -22,7 +23,8 @@
         ],
         "usuario": "lucas",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Martina",
@@ -33,7 +35,8 @@
         "peliculas_reservadas": [],
         "usuario": "martina.rodriguez",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Santiago",
@@ -46,7 +49,8 @@
         ],
         "usuario": "santiago.fernandez",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": true
     },
     {
         "nombre": "Camila",
@@ -57,7 +61,8 @@
         "peliculas_reservadas": [],
         "usuario": "camila.lopez",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Agustín",
@@ -72,7 +77,8 @@
         ],
         "usuario": "agustin.martinez",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Valentina",
@@ -83,7 +89,8 @@
         "peliculas_reservadas": [],
         "usuario": "valentina.diaz",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": true
     },
     {
         "nombre": "Joaquín",
@@ -96,7 +103,8 @@
         ],
         "usuario": "joaquin.perez",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Sofía",
@@ -107,7 +115,8 @@
         "peliculas_reservadas": [],
         "usuario": "sofia.romero",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Mateo",
@@ -121,7 +130,8 @@
         ],
         "usuario": "mateo.alvarez",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Lucía",
@@ -132,7 +142,8 @@
         "peliculas_reservadas": [],
         "usuario": "lucia.torres",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Nicolás",
@@ -145,7 +156,8 @@
         ],
         "usuario": "nicolas.flores",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Julieta",
@@ -156,7 +168,8 @@
         "peliculas_reservadas": [],
         "usuario": "julieta.benitez",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Tomás",
@@ -170,7 +183,8 @@
         ],
         "usuario": "tomas.acosta",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": true
     },
     {
         "nombre": "Micaela",
@@ -181,7 +195,8 @@
         "peliculas_reservadas": [],
         "usuario": "micaela.castro",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     },
     {
         "nombre": "Facundo",
@@ -194,6 +209,7 @@
         ],
         "usuario": "facundo.medina",
         "password": "123",
-        "rol": "usuario"
+        "rol": "usuario",
+        "bloqueado": false
     }
 ]
