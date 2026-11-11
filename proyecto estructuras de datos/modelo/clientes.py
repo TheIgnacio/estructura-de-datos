@@ -5,7 +5,7 @@ RUTA_clientes = Path(__file__).resolve().parent.parent / "datos" / "clientes.jso
 
 
 class Cliente:
-    def __init__(self, nombre, apellido, dni, telefono, direccion, peliculas_reservadas=None, usuario="", password="", rol="usuario", bloqueado=False):
+    def __init__(self, nombre, apellido, dni, telefono, direccion, peliculas_reservadas=None, usuario="", password="", rol="usuario", bloqueado=False, deuda=0):
         if not nombre or not str(nombre).strip():
             raise ValueError("El nombre del cliente no puede estar vacio.")
         if not apellido or not str(apellido).strip():
@@ -27,6 +27,10 @@ class Cliente:
         self.password = str(password).strip()
         self.rol = str(rol).strip()
         self.bloqueado = bool(bloqueado)
+        try:
+            self.deuda = float(deuda)
+        except (ValueError, TypeError):
+            self.deuda = 0.0
     # ---------- METODOS DE NEGOCIO ----------
 
     def datos_clientes(self):
@@ -62,6 +66,9 @@ class Cliente:
 
     def to_dict(self):
         """Convierte el cliente a diccionario para guardar en JSON."""
+        deuda_val = getattr(self, "deuda", 0)
+        if isinstance(deuda_val, float) and deuda_val.is_integer():
+            deuda_val = int(deuda_val)
         return {
             "nombre": self._nombre,
             "apellido": self._apellido,
@@ -72,7 +79,8 @@ class Cliente:
             "usuario": self.usuario,
             "password": self.password,
             "rol": self.rol,
-            "bloqueado": self.bloqueado
+            "bloqueado": self.bloqueado,
+            "deuda": deuda_val
         }
 
     @classmethod
@@ -88,7 +96,8 @@ class Cliente:
             usuario=datos.get("usuario", ""),
             password=datos.get("password", ""),
             rol=datos.get("rol", "usuario"),
-            bloqueado=datos.get("bloqueado", False)
+            bloqueado=datos.get("bloqueado", False),
+            deuda=datos.get("deuda", 0)
         )
 
     # ---------- PERSISTENCIA ----------

@@ -9,7 +9,8 @@
         "usuario": "admin",
         "password": "admin123",
         "rol": "admin",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Lucas",
@@ -24,7 +25,8 @@
         "usuario": "lucas",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 600
     },
     {
         "nombre": "Martina",
@@ -36,7 +38,8 @@
         "usuario": "martina.rodriguez",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Santiago",
@@ -50,7 +53,8 @@
         "usuario": "santiago.fernandez",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": true
+        "bloqueado": true,
+        "deuda": 0
     },
     {
         "nombre": "Camila",
@@ -62,7 +66,8 @@
         "usuario": "camila.lopez",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Agustín",
@@ -78,7 +83,8 @@
         "usuario": "agustin.martinez",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Valentina",
@@ -90,7 +96,8 @@
         "usuario": "valentina.diaz",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": true
+        "bloqueado": true,
+        "deuda": 0
     },
     {
         "nombre": "Joaquín",
@@ -104,7 +111,8 @@
         "usuario": "joaquin.perez",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Sofía",
@@ -116,7 +124,8 @@
         "usuario": "sofia.romero",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Mateo",
@@ -131,7 +140,8 @@
         "usuario": "mateo.alvarez",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Lucía",
@@ -143,7 +153,8 @@
         "usuario": "lucia.torres",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Nicolás",
@@ -157,7 +168,8 @@
         "usuario": "nicolas.flores",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Julieta",
@@ -169,7 +181,8 @@
         "usuario": "julieta.benitez",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Tomás",
@@ -184,7 +197,8 @@
         "usuario": "tomas.acosta",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": true
+        "bloqueado": true,
+        "deuda": 0
     },
     {
         "nombre": "Micaela",
@@ -196,7 +210,8 @@
         "usuario": "micaela.castro",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     },
     {
         "nombre": "Facundo",
@@ -210,6 +225,7 @@
         "usuario": "facundo.medina",
         "password": "123",
         "rol": "usuario",
-        "bloqueado": false
+        "bloqueado": false,
+        "deuda": 0
     }
 ]

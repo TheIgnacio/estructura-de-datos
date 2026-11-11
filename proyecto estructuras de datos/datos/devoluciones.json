@@ -1,0 +1,37 @@
+[
+    {
+        "cliente_id": "38452109",
+        "pelicula_id": "MOV-001",
+        "fecha_prevista": "2026-11-01",
+        "fecha_devolucion": "2026-11-05",
+        "precio": 1000
+    },
+    {
+        "cliente_id": "lucas",
+        "pelicula_id": "MOV-006",
+        "fecha_prevista": "2026-11-02",
+        "fecha_devolucion": "2026-11-06",
+        "precio": 1000
+    },
+    {
+        "cliente_id": "39871234",
+        "pelicula_id": "MOV-002",
+        "fecha_prevista": "2026-11-03",
+        "fecha_devolucion": "2026-11-07",
+        "precio": 1000
+    },
+    {
+        "cliente_id": "35987412",
+        "pelicula_id": "MOV-014",
+        "fecha_prevista": "2026-11-04",
+        "fecha_devolucion": "2026-11-07",
+        "precio": 1000
+    },
+    {
+        "cliente_id": "41235678",
+        "pelicula_id": "MOV-005",
+        "fecha_prevista": "2026-11-10",
+        "fecha_devolucion": "2026-11-10",
+        "precio": 1000
+    }
+]

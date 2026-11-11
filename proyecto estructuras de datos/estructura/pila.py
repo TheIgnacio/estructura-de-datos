@@ -20,6 +20,10 @@ class Pila:
         self._tope = nuevo_nodo
         self._tamanio += 1
 
+    def append(self, dato):
+        """Alias de apilar para compatibilidad."""
+        self.apilar(dato)
+
     def desapilar(self):
         
         if self.esta_vacia():
@@ -29,6 +33,10 @@ class Pila:
         self._tope = self._tope.siguiente  # el tope pasa a ser el de abajo
         self._tamanio -= 1
         return dato
+
+    def pop(self):
+        """Alias de desapilar para compatibilidad."""
+        return self.desapilar()
 
     def ver_tope(self):
         

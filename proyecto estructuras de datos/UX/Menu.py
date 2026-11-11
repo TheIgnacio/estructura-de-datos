@@ -1,5 +1,7 @@
 import sys
+import json
 from pathlib import Path
+from datetime import datetime, date
 
 # Permite importar desde la raiz del proyecto
 base = Path(__file__).resolve().parent.parent
@@ -24,8 +26,44 @@ def limpiar_texto(texto):
     return texto
 
 
-# Alias para compatibilidad con otros modulos
+# Alias y funciones de persistencia para compatibilidad
 cargar_peliculas = Pelicula.cargar_desde_json
+guardar_peliculas = Pelicula.guardar_en_json
+cargar_clientes = Cliente.cargar_desde_json
+guardar_clientes = Cliente.guardar_en_json
+
+
+def guardar_datos(datos=None, lista_clientes=None, lista_peliculas=None):
+    """Guarda clientes y/o peliculas en sus respectivos archivos JSON."""
+    if datos is not None:
+        if isinstance(datos, list) and len(datos) > 0:
+            if isinstance(datos[0], Cliente):
+                lista_clientes = datos
+            elif isinstance(datos[0], Pelicula):
+                lista_peliculas = datos
+    if lista_clientes is not None:
+        Cliente.guardar_en_json(lista_clientes)
+    if lista_peliculas is not None:
+        Pelicula.guardar_en_json(lista_peliculas)
+
+
+def cargar_datos():
+    """Carga y retorna las listas de peliculas y clientes desde JSON."""
+    return Pelicula.cargar_desde_json(), Cliente.cargar_desde_json()
+
+
+def parsear_fecha(f_str):
+    """Convierte un string de fecha en objeto date soportando formatos comunes."""
+    if not f_str:
+        return None
+    if isinstance(f_str, (datetime, date)):
+        return f_str if isinstance(f_str, date) else f_str.date()
+    for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y", "%Y/%m/%d"):
+        try:
+            return datetime.strptime(str(f_str).strip(), fmt).date()
+        except ValueError:
+            pass
+    return None
 
 
 # ====================================================================== #
@@ -155,6 +193,7 @@ def menu_administrador(peliculas, clientes):
         print(" 11. Deshacer ultima operacion (Pila)")
         print(" 12. Ver historial de consultas (Cola)")
         print(" 13. Gestionar Lista Negra de Clientes")
+        print(" 14. Aplicar Recargo por Devolucion Tardia")
         print()
         print("  0. Cerrar Sesion")
         print("=" * 48)
@@ -428,6 +467,11 @@ def menu_administrador(peliculas, clientes):
                             peliculas[i] = obj
                             break
                     print(f"Se restauraron los datos anteriores de: {obj.titulo}")
+                elif accion == "recargo":
+                    cli, monto = obj
+                    cli.deuda = max(0.0, getattr(cli, "deuda", 0.0) - monto)
+                    guardar_datos(lista_clientes=clientes)
+                    print(f"Se anulo el recargo de ${monto} a cliente {cli._nombre} {cli._apellido}.")
                 Pelicula.guardar_en_json(peliculas)
             print()
 
@@ -444,6 +488,96 @@ def menu_administrador(peliculas, clientes):
         # 13. Gestionar Lista Negra de Clientes
         elif opcion == 13:
             gestionar_lista_negra(clientes)
+
+        # 14. Aplicar Recargo por Devolucion Tardia
+        elif opcion == 14:
+            print("\n--- Aplicar Recargo por Devolucion Tardia ---")
+            # Pedir ID del cliente y de la pelicula
+            id_cliente = input("ID del cliente: ").strip()
+            id_pelicula = input("ID de la pelicula: ").strip()
+
+            cliente_encontrado = None
+            for c in clientes:
+                if (c.dni == id_cliente or 
+                    c.usuario.lower() == id_cliente.lower() or 
+                    getattr(c, "id", "") == id_cliente):
+                    cliente_encontrado = c
+                    break
+
+            if cliente_encontrado is None:
+                print(f"No se encontro ningun cliente con ID '{id_cliente}'.")
+                print()
+                continue
+
+            # Buscar la ultima devolucion de ese cliente
+            ruta_devoluciones = base / "datos" / "devoluciones.json"
+            devoluciones = []
+            if ruta_devoluciones.exists():
+                try:
+                    with open(ruta_devoluciones, "r", encoding="utf-8") as f:
+                        devoluciones = json.load(f)
+                except Exception:
+                    devoluciones = []
+
+            devoluciones_cliente = [
+                d for d in devoluciones
+                if str(d.get("cliente_id", "")).strip().lower() in (id_cliente.lower(), cliente_encontrado.dni.lower(), cliente_encontrado.usuario.lower())
+                or str(d.get("id_cliente", "")).strip().lower() in (id_cliente.lower(), cliente_encontrado.dni.lower(), cliente_encontrado.usuario.lower())
+                or str(d.get("dni", "")).strip().lower() in (id_cliente.lower(), cliente_encontrado.dni.lower(), cliente_encontrado.usuario.lower())
+            ]
+
+            devoluciones_peli = [
+                d for d in devoluciones_cliente
+                if str(d.get("pelicula_id", "")).strip().upper() == id_pelicula.upper()
+                or str(d.get("codigo", "")).strip().upper() == id_pelicula.upper()
+                or str(d.get("id_pelicula", "")).strip().upper() == id_pelicula.upper()
+            ]
+
+            ultima_devolucion = None
+            if devoluciones_peli:
+                ultima_devolucion = devoluciones_peli[-1]
+            elif devoluciones_cliente:
+                ultima_devolucion = devoluciones_cliente[-1]
+
+            if ultima_devolucion is None:
+                print(f"No se encontro registro de devolucion para el cliente '{id_cliente}'.")
+                print()
+                continue
+
+            # Si se paso de la fecha prevista, calcular recargo de 15% por dia de atraso
+            fecha_prev_raw = ultima_devolucion.get("fecha_prevista") or ultima_devolucion.get("fecha_limite")
+            fecha_dev_raw = ultima_devolucion.get("fecha_devolucion") or ultima_devolucion.get("fecha_real")
+
+            fecha_prevista = parsear_fecha(fecha_prev_raw)
+            fecha_devolucion = parsear_fecha(fecha_dev_raw) if fecha_dev_raw else datetime.now().date()
+
+            if not fecha_prevista or not fecha_devolucion:
+                print("Error: formato de fecha invalido en la devolucion.")
+                print()
+                continue
+
+            dias_atraso = (fecha_devolucion - fecha_prevista).days
+            if dias_atraso <= 0:
+                print(f"La devolucion fue a tiempo (dias de atraso: {dias_atraso}). No se aplica recargo.")
+                print()
+                continue
+
+            precio_base = float(ultima_devolucion.get("precio", ultima_devolucion.get("precio_alquiler", 1000)))
+            recargo = round(dias_atraso * (precio_base * 0.15), 2)
+            if isinstance(recargo, float) and recargo.is_integer():
+                recargo = int(recargo)
+
+            # Sumar ese recargo a la deuda del cliente en datos/clientes.json
+            cliente_encontrado.deuda = getattr(cliente_encontrado, "deuda", 0) + recargo
+            guardar_datos(lista_clientes=clientes)
+
+            # Guardar en pila_deshacer para poder deshacer
+            pila_deshacer.append(("recargo", (cliente_encontrado, recargo)))
+
+            # Mostrar mensaje: "Recargo de $X aplicado a cliente Y por Z dias de atraso"
+            nombre_cliente = f"{cliente_encontrado._nombre} {cliente_encontrado._apellido}".strip()
+            print(f"Recargo de ${recargo} aplicado a cliente {nombre_cliente} por {dias_atraso} dias de atraso")
+            print()
 
         elif opcion == 0:
             print("\nCerrando sesion de Administrador...")
