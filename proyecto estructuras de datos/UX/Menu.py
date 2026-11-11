@@ -29,6 +29,107 @@ cargar_peliculas = Pelicula.cargar_desde_json
 
 
 # ====================================================================== #
+#  GESTIÓN DE LISTA NEGRA DE CLIENTES                                    #
+# ====================================================================== #
+def gestionar_lista_negra(clientes):
+    """Permite al administrador ver la lista negra, agregar o quitar clientes."""
+    subopcion = -1
+    while subopcion != 0:
+        print("\n" + "=" * 50)
+        print("     GESTION DE LISTA NEGRA DE CLIENTES")
+        print("=" * 50)
+        print("  1. Ver clientes en Lista Negra")
+        print("  2. Agregar cliente a Lista Negra (bloquear)")
+        print("  3. Quitar cliente de Lista Negra (desbloquear)")
+        print()
+        print("  0. Volver al Panel de Administrador")
+        print("=" * 50)
+
+        try:
+            subopcion = int(input("Seleccione una opcion: "))
+        except ValueError:
+            print("\n[!] Debe ingresar un numero valido.")
+            continue
+
+        # 1. Ver lista negra
+        if subopcion == 1:
+            print("\n--- Clientes en Lista Negra ---")
+            bloqueados = [c for c in clientes if getattr(c, "bloqueado", False)]
+            if not bloqueados:
+                print("Actualmente no hay clientes en la lista negra.")
+            else:
+                print(f"Total de clientes bloqueados: {len(bloqueados)}")
+                for c in bloqueados:
+                    print(f"  • DNI: {c.dni:<10} | Usuario: {c.usuario:<18} | Nombre: {c._nombre} {c._apellido}")
+            print()
+
+        # 2. Agregar cliente a lista negra
+        elif subopcion == 2:
+            print("\n--- Agregar Cliente a Lista Negra ---")
+            busqueda = input("Ingrese DNI o Usuario del cliente a bloquear: ").strip()
+            if not busqueda:
+                print("El dato no puede estar vacio.")
+                continue
+
+            cliente_target = None
+            for c in clientes:
+                if c.dni == busqueda or c.usuario.lower() == busqueda.lower():
+                    cliente_target = c
+                    break
+
+            if cliente_target is None:
+                print(f"No se encontro ningun cliente con DNI o Usuario '{busqueda}'.")
+            elif cliente_target.rol.lower() == "admin":
+                print("[!] Accion no permitida: No se puede bloquear a un administrador.")
+            elif getattr(cliente_target, "bloqueado", False):
+                print(f"El cliente {cliente_target._nombre} {cliente_target._apellido} ya se encuentra en la lista negra.")
+            else:
+                print(f"Cliente: {cliente_target._nombre} {cliente_target._apellido} (DNI: {cliente_target.dni})")
+                conf = input("¿Confirmar que desea agregarlo a la LISTA NEGRA? (s/n): ").strip().lower()
+                if conf == "s":
+                    cliente_target.bloqueado = True
+                    Cliente.guardar_en_json(clientes)
+                    print(f"[OK] {cliente_target._nombre} {cliente_target._apellido} ha sido agregado a la LISTA NEGRA.")
+                else:
+                    print("Operacion cancelada.")
+            print()
+
+        # 3. Quitar cliente de lista negra
+        elif subopcion == 3:
+            print("\n--- Quitar Cliente de Lista Negra ---")
+            busqueda = input("Ingrese DNI o Usuario del cliente a desbloquear: ").strip()
+            if not busqueda:
+                print("El dato no puede estar vacio.")
+                continue
+
+            cliente_target = None
+            for c in clientes:
+                if c.dni == busqueda or c.usuario.lower() == busqueda.lower():
+                    cliente_target = c
+                    break
+
+            if cliente_target is None:
+                print(f"No se encontro ningun cliente con DNI o Usuario '{busqueda}'.")
+            elif not getattr(cliente_target, "bloqueado", False):
+                print(f"El cliente {cliente_target._nombre} {cliente_target._apellido} NO se encuentra en la lista negra.")
+            else:
+                print(f"Cliente bloqueado: {cliente_target._nombre} {cliente_target._apellido} (DNI: {cliente_target.dni})")
+                conf = input("¿Confirmar que desea quitarlo de la LISTA NEGRA? (s/n): ").strip().lower()
+                if conf == "s":
+                    cliente_target.bloqueado = False
+                    Cliente.guardar_en_json(clientes)
+                    print(f"[OK] {cliente_target._nombre} {cliente_target._apellido} ha sido removido de la LISTA NEGRA.")
+                else:
+                    print("Operacion cancelada.")
+            print()
+
+        elif subopcion == 0:
+            print("\nVolviendo al Panel de Administrador...")
+        else:
+            print("\nOpcion no valida. Intente nuevamente.")
+
+
+# ====================================================================== #
 #  MENÚ DE ADMINISTRADOR (Gestión completa, ABM, estructuras)            #
 # ====================================================================== #
 def menu_administrador(peliculas, clientes):
@@ -53,6 +154,7 @@ def menu_administrador(peliculas, clientes):
         print(" 10. Buscar por Codigo (BST)")
         print(" 11. Deshacer ultima operacion (Pila)")
         print(" 12. Ver historial de consultas (Cola)")
+        print(" 13. Gestionar Lista Negra de Clientes")
         print()
         print("  0. Cerrar Sesion")
         print("=" * 48)
@@ -339,6 +441,10 @@ def menu_administrador(peliculas, clientes):
                     print(f"- {b}")
             print()
 
+        # 13. Gestionar Lista Negra de Clientes
+        elif opcion == 13:
+            gestionar_lista_negra(clientes)
+
         elif opcion == 0:
             print("\nCerrando sesion de Administrador...")
 
@@ -448,6 +554,12 @@ def menu_usuario(cliente_actual: Cliente, peliculas, clientes):
         # 6. Reservar una película
         elif opcion == 6:
             print("\n--- Reservar Pelicula ---")
+            if getattr(cliente_actual, "bloqueado", False):
+                print("[!] ACCION BLOQUEADA: Tu cuenta se encuentra en la LISTA NEGRA.")
+                print("No tienes autorizacion para alquilar o reservar peliculas.")
+                print()
+                continue
+
             cod_reserva = input("Ingrese el codigo de la pelicula a reservar: ").strip().upper()
             pelicula_target = None
             for p in peliculas:
@@ -516,6 +628,7 @@ def menu_usuario(cliente_actual: Cliente, peliculas, clientes):
                             peli.stock += 1
                         Cliente.guardar_en_json(clientes)
                         Pelicula.guardar_en_json(peliculas)
+                  
                         print("[OK] Reserva cancelada y stock restaurado correctamente.")
                     else:
                         print("Operacion cancelada.")
@@ -592,6 +705,15 @@ def iniciar_menu():
                     print("[-] Usuario o contrasenia incorrectos.")
 
             if cliente_logeado is not None:
+                # Verificación de lista negra / bloqueo
+                if getattr(cliente_logeado, "bloqueado", False):
+                    print("\n" + "!" * 58)
+                    print(" [ACCESO DENEGADO] CLIENTE EN LISTA NEGRA")
+                    print(" Tu cuenta se encuentra bloqueada en el sistema del videoclub.")
+                    print(" No puedes iniciar sesion. Comunicate con administracion.")
+                    print("!" * 58)
+                    continue
+
                 # Verificación de rol para bifurcar al menú correspondiente
                 if cliente_logeado.rol.lower() == "admin":
                     menu_administrador(peliculas, clientes)
