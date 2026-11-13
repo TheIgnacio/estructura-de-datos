@@ -67,6 +67,56 @@ def parsear_fecha(f_str):
 
 
 # ====================================================================== #
+#  RANKING Y ORDENAMIENTO POR PUNTUACIÓN (QUICKSORT)                     #
+# ====================================================================== #
+def ordenar_por_puntuacion(lista_peliculas: list) -> list:
+    """
+    Ordena una lista de películas de mayor a menor según su puntuación.
+    Implementa el algoritmo Quicksort adaptado para orden descendente.
+    """
+    if len(lista_peliculas) <= 1:
+        return list(lista_peliculas)
+    pivote = lista_peliculas[len(lista_peliculas) // 2]
+    mayores = [p for p in lista_peliculas if p.puntuacion > pivote.puntuacion]
+    iguales = [p for p in lista_peliculas if p.puntuacion == pivote.puntuacion]
+    menores = [p for p in lista_peliculas if p.puntuacion < pivote.puntuacion]
+    return ordenar_por_puntuacion(mayores) + iguales + ordenar_por_puntuacion(menores)
+
+
+def mostrar_ranking_top10(peliculas: list):
+    """Muestra el Top 10 de películas con mejor puntuación."""
+    print("\n" + "=" * 70)
+    print("      🏆 RANKING TOP 10 - MEJORES PELICULAS DEL VIDEOCLUB 🏆")
+    print("=" * 70)
+
+    if not peliculas:
+        print("No hay peliculas registradas en el catalogo.")
+        print("=" * 70 + "\n")
+        return
+
+    ranking = ordenar_por_puntuacion(peliculas)
+    top_10 = ranking[:10]
+
+    medallas = {1: "🥇", 2: "🥈", 3: "🥉"}
+
+    print(f"{'PUESTO':<8} {'CODIGO':<10} {'PUNTUACION':<14} {'TITULO (ANIO)':<34}")
+    print("-" * 70)
+
+    for i, p in enumerate(top_10, start=1):
+        if i in medallas:
+            puesto_str = f"  {medallas[i]} "
+        else:
+            puesto_str = f"  {i}º  "
+        estrellas = f"{p.puntuacion} ⭐"
+        titulo_anio = f"{p.titulo} ({p.anio})"
+        print(f"{puesto_str:<8} [{p.codigo}]  {estrellas:<12} {titulo_anio:<34}")
+
+    print("=" * 70)
+    print(f"Total de peliculas evaluadas en el ranking: {len(peliculas)}")
+    print("=" * 70 + "\n")
+
+
+# ====================================================================== #
 #  GESTIÓN DE LISTA NEGRA DE CLIENTES                                    #
 # ====================================================================== #
 def gestionar_lista_negra(clientes):
@@ -194,6 +244,7 @@ def menu_administrador(peliculas, clientes):
         print(" 12. Ver historial de consultas (Cola)")
         print(" 13. Gestionar Lista Negra de Clientes")
         print(" 14. Aplicar Recargo por Devolucion Tardia")
+        print(" 15. Ver Ranking de Mejores Peliculas (Top 10)")
         print()
         print("  0. Cerrar Sesion")
         print("=" * 48)
@@ -276,16 +327,18 @@ def menu_administrador(peliculas, clientes):
                 anio = int(input("Anio de estreno: "))
                 duracion = int(input("Duracion en minutos: "))
                 stock = int(input("Stock disponible: "))
+                punt_in = input("Puntuacion (0.0 a 10.0) [7.0]: ").strip()
+                puntuacion = float(punt_in) if punt_in else 7.0
             except ValueError:
-                print("Anio, duracion y stock deben ser numeros enteros.")
+                print("Anio, duracion y stock deben ser numeros enteros, y puntuacion un numero decimal.")
                 continue
 
             try:
-                nueva = Pelicula(cod, titulo, categoria, subcategoria, director, anio, duracion, stock)
+                nueva = Pelicula(cod, titulo, categoria, subcategoria, director, anio, duracion, stock, puntuacion)
                 peliculas.append(nueva)
                 Pelicula.guardar_en_json(peliculas)
                 pila_deshacer.apilar(("agregar", nueva))
-                print(f"[OK] Pelicula '{titulo}' agregada y guardada con exito.")
+                print(f"[OK] Pelicula '{titulo}' (Puntuacion: {puntuacion} ⭐) agregada y guardada con exito.")
             except ValueError as e:
                 print(f"Error al crear pelicula: {e}")
             print()
@@ -337,13 +390,15 @@ def menu_administrador(peliculas, clientes):
                 nuevo_anio = input(f"Nuevo anio [{pelicula_encontrada.anio}]: ").strip()
                 nueva_dur = input(f"Nueva duracion [{pelicula_encontrada.duracion}]: ").strip()
                 nuevo_stock = input(f"Nuevo stock [{pelicula_encontrada.stock}]: ").strip()
+                nueva_punt = input(f"Nueva puntuacion [{pelicula_encontrada.puntuacion}]: ").strip()
 
                 try:
                     copia_vieja = Pelicula(
                         pelicula_encontrada.codigo, pelicula_encontrada.titulo,
                         pelicula_encontrada.categoria, pelicula_encontrada.subcategoria,
                         pelicula_encontrada.director, pelicula_encontrada.anio,
-                        pelicula_encontrada.duracion, pelicula_encontrada.stock
+                        pelicula_encontrada.duracion, pelicula_encontrada.stock,
+                        pelicula_encontrada.puntuacion
                     )
 
                     if nuevo_titulo:
@@ -360,6 +415,8 @@ def menu_administrador(peliculas, clientes):
                         pelicula_encontrada.duracion = int(nueva_dur)
                     if nuevo_stock:
                         pelicula_encontrada.stock = int(nuevo_stock)
+                    if nueva_punt:
+                        pelicula_encontrada.puntuacion = float(nueva_punt)
 
                     Pelicula.guardar_en_json(peliculas)
                     pila_deshacer.apilar(("modificar", copia_vieja))
@@ -579,6 +636,10 @@ def menu_administrador(peliculas, clientes):
             print(f"Recargo de ${recargo} aplicado a cliente {nombre_cliente} por {dias_atraso} dias de atraso")
             print()
 
+        # 15. Ver Ranking de Mejores Peliculas (Top 10)
+        elif opcion == 15:
+            mostrar_ranking_top10(peliculas)
+
         elif opcion == 0:
             print("\nCerrando sesion de Administrador...")
 
@@ -605,6 +666,7 @@ def menu_usuario(cliente_actual: Cliente, peliculas, clientes):
         print("  8. Cancelar una Reserva")
         print("  9. Ver Mis Datos de Perfil")
         print(" 10. Ver Mi Historial de Consultas (Cola)")
+        print(" 11. Ver Ranking de Mejores Peliculas (Top 10)")
         print()
         print("  0. Cerrar Sesion")
         print("=" * 48)
@@ -620,7 +682,7 @@ def menu_usuario(cliente_actual: Cliente, peliculas, clientes):
             print("\n--- Catalogo de Peliculas Disponibles ---")
             for p in peliculas:
                 estado = f"Disponible (Stock: {p.stock})" if p.stock > 0 else "SIN STOCK"
-                print(f"[{p.codigo}] {p.titulo} ({p.anio}) | {p.categoria} | {estado}")
+                print(f"[{p.codigo}] {p.titulo} ({p.anio}) | {p.categoria} | Puntuacion: {p.puntuacion} ⭐ | {estado}")
             print()
 
         # 2. Buscar por título
@@ -789,6 +851,10 @@ def menu_usuario(cliente_actual: Cliente, peliculas, clientes):
                 for b in historial.listar():
                     print(f"- {b}")
             print()
+
+        # 11. Ver Ranking de Mejores Peliculas (Top 10)
+        elif opcion == 11:
+            mostrar_ranking_top10(peliculas)
 
         elif opcion == 0:
             print(f"\nHasta luego, {cliente_actual._nombre}. Sesion cerrada.")

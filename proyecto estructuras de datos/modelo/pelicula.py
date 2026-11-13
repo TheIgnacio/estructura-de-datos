@@ -5,7 +5,7 @@ RUTA_peliculas = Path(__file__).resolve().parent.parent / "datos" / "peliculas.j
 
 
 class Pelicula:
-    def __init__(self, codigo, titulo, categoria, subcategoria, director, anio, duracion, stock):
+    def __init__(self, codigo, titulo, categoria, subcategoria, director, anio, duracion, stock, puntuacion=0.0):
         if not codigo or not str(codigo).strip():
             raise ValueError("El codigo de la pelicula no puede estar vacio.")
 
@@ -17,6 +17,7 @@ class Pelicula:
         self.anio = anio
         self.duracion = duracion
         self.stock = stock
+        self.puntuacion = puntuacion
 
     # ---------- PROPIEDADES Y SETTERS ----------
 
@@ -105,6 +106,20 @@ class Pelicula:
             raise ValueError("El stock no puede ser negativo.")
         self.__stock = val
 
+    @property
+    def puntuacion(self):
+        return self.__puntuacion
+
+    @puntuacion.setter
+    def puntuacion(self, nueva):
+        try:
+            val = float(nueva)
+        except (ValueError, TypeError):
+            raise ValueError("La puntuacion debe ser un numero.")
+        if val < 0.0 or val > 10.0:
+            raise ValueError("La puntuacion debe estar comprendida entre 0.0 y 10.0.")
+        self.__puntuacion = round(val, 1)
+
     # ---------- SERIALIZACION ----------
 
     def to_dict(self):
@@ -117,7 +132,8 @@ class Pelicula:
             "director": self.__director,
             "anio": self.__anio,
             "duracion": self.__duracion,
-            "stock": self.__stock
+            "stock": self.__stock,
+            "puntuacion": self.__puntuacion
         }
 
     @classmethod
@@ -131,7 +147,8 @@ class Pelicula:
             director=datos["director"],
             anio=datos["anio"],
             duracion=datos.get("duracion", 120),
-            stock=datos["stock"]
+            stock=datos["stock"],
+            puntuacion=datos.get("puntuacion", 0.0)
         )
 
     # ---------- PERSISTENCIA ----------
@@ -162,4 +179,4 @@ class Pelicula:
     def __str__(self):
         return (f"[{self.codigo}] {self.titulo} ({self.anio}) - "
                 f"{self.director} | {self.categoria} ({self.subcategoria}) | "
-                f"Duracion: {self.duracion} min | Stock: {self.stock}")
+                f"Duracion: {self.duracion} min | Puntuacion: {self.puntuacion} ⭐ | Stock: {self.stock}")

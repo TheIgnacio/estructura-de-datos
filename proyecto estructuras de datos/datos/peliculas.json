@@ -7,7 +7,8 @@
         "director": "Robert Zemeckis",
         "anio": 1985,
         "duracion": 116,
-        "stock": 5
+        "stock": 5,
+        "puntuacion": 8.5
     },
     {
         "codigo": "MOV-002",
@@ -17,7 +18,8 @@
         "director": "Robert Zemeckis",
         "anio": 1989,
         "duracion": 108,
-        "stock": 3
+        "stock": 3,
+        "puntuacion": 7.8
     },
     {
         "codigo": "MOV-003",
@@ -27,7 +29,8 @@
         "director": "Robert Zemeckis",
         "anio": 1990,
         "duracion": 118,
-        "stock": 0
+        "stock": 0,
+        "puntuacion": 7.4
     },
     {
         "codigo": "MOV-004",
@@ -37,7 +40,8 @@
         "director": "Christopher Nolan",
         "anio": 2010,
         "duracion": 148,
-        "stock": 4
+        "stock": 4,
+        "puntuacion": 8.8
     },
     {
         "codigo": "MOV-005",
@@ -47,7 +51,8 @@
         "director": "Quentin Tarantino",
         "anio": 1994,
         "duracion": 154,
-        "stock": 0
+        "stock": 0,
+        "puntuacion": 8.9
     },
     {
         "codigo": "MOV-006",
@@ -57,7 +62,8 @@
         "director": "Christopher Nolan",
         "anio": 2008,
         "duracion": 152,
-        "stock": 6
+        "stock": 6,
+        "puntuacion": 9.0
     },
     {
         "codigo": "MOV-007",
@@ -67,7 +73,8 @@
         "director": "Frank Darabont",
         "anio": 1994,
         "duracion": 142,
-        "stock": 2
+        "stock": 2,
+        "puntuacion": 9.3
     },
     {
         "codigo": "MOV-008",
@@ -77,7 +84,8 @@
         "director": "Lana y Lilly Wachowski",
         "anio": 1999,
         "duracion": 136,
-        "stock": 0
+        "stock": 0,
+        "puntuacion": 8.7
     },
     {
         "codigo": "MOV-009",
@@ -87,7 +95,8 @@
         "director": "Stanley Kubrick",
         "anio": 1980,
         "duracion": 144,
-        "stock": 1
+        "stock": 1,
+        "puntuacion": 8.4
     },
     {
         "codigo": "MOV-010",
@@ -97,7 +106,8 @@
         "director": "Peter Jackson",
         "anio": 2001,
         "duracion": 178,
-        "stock": 7
+        "stock": 7,
+        "puntuacion": 8.9
     },
     {
         "codigo": "MOV-011",
@@ -107,7 +117,8 @@
         "director": "Peter Jackson",
         "anio": 2002,
         "duracion": 179,
-        "stock": 4
+        "stock": 4,
+        "puntuacion": 8.8
     },
     {
         "codigo": "MOV-012",
@@ -117,7 +128,8 @@
         "director": "Peter Jackson",
         "anio": 2003,
         "duracion": 201,
-        "stock": 0
+        "stock": 0,
+        "puntuacion": 9.0
     },
     {
         "codigo": "MOV-013",
@@ -127,7 +139,8 @@
         "director": "Francis Ford Coppola",
         "anio": 1972,
         "duracion": 175,
-        "stock": 5
+        "stock": 5,
+        "puntuacion": 9.2
     },
     {
         "codigo": "MOV-014",
@@ -137,7 +150,8 @@
         "director": "Christopher Nolan",
         "anio": 2014,
         "duracion": 169,
-        "stock": 8
+        "stock": 8,
+        "puntuacion": 8.7
     },
     {
         "codigo": "MOV-015",
@@ -147,7 +161,8 @@
         "director": "David Fincher",
         "anio": 1999,
         "duracion": 139,
-        "stock": 0
+        "stock": 0,
+        "puntuacion": 8.8
     },
     {
         "codigo": "MOV-016",
@@ -157,7 +172,8 @@
         "director": "Bong Joon-ho",
         "anio": 2019,
         "duracion": 132,
-        "stock": 3
+        "stock": 3,
+        "puntuacion": 8.5
     },
     {
         "codigo": "MOV-017",
@@ -167,7 +183,8 @@
         "director": "Hayao Miyazaki",
         "anio": 2001,
         "duracion": 125,
-        "stock": 2
+        "stock": 2,
+        "puntuacion": 8.6
     },
     {
         "codigo": "MOV-018",
@@ -177,7 +194,8 @@
         "director": "Steven Spielberg",
         "anio": 1993,
         "duracion": 127,
-        "stock": 0
+        "stock": 0,
+        "puntuacion": 8.2
     },
     {
         "codigo": "MOV-019",
@@ -187,7 +205,8 @@
         "director": "Ridley Scott",
         "anio": 2000,
         "duracion": 155,
-        "stock": 4
+        "stock": 4,
+        "puntuacion": 8.5
     },
     {
         "codigo": "MOV-020",
@@ -197,7 +216,8 @@
         "director": "Quentin Tarantino",
         "anio": 2009,
         "duracion": 153,
-        "stock": 3
+        "stock": 3,
+        "puntuacion": 8.4
     },
     {
         "codigo": "MOV-021",
@@ -207,7 +227,8 @@
         "director": "Francis Ford Coppola",
         "anio": 1974,
         "duracion": 202,
-        "stock": 3
+        "stock": 3,
+        "puntuacion": 9.0
     },
     {
         "codigo": "MOV-022",
@@ -217,7 +238,8 @@
         "director": "Robert Zemeckis",
         "anio": 1994,
         "duracion": 142,
-        "stock": 5
+        "stock": 5,
+        "puntuacion": 8.8
     },
     {
         "codigo": "MOV-023",
@@ -227,7 +249,8 @@
         "director": "Giuseppe Tornatore",
         "anio": 1988,
         "duracion": 124,
-        "stock": 2
+        "stock": 2,
+        "puntuacion": 8.5
     },
     {
         "codigo": "MOV-024",
@@ -237,7 +260,8 @@
         "director": "Ridley Scott",
         "anio": 1982,
         "duracion": 117,
-        "stock": 4
+        "stock": 4,
+        "puntuacion": 8.1
     },
     {
         "codigo": "MOV-025",
@@ -247,7 +271,8 @@
         "director": "Lee Unkrich",
         "anio": 2017,
         "duracion": 105,
-        "stock": 6
+        "stock": 6,
+        "puntuacion": 8.4
     },
     {
         "codigo": "MOV-026",
@@ -257,7 +282,8 @@
         "director": "Roberto Benigni",
         "anio": 1997,
         "duracion": 116,
-        "stock": 0
+        "stock": 0,
+        "puntuacion": 8.6
     },
     {
         "codigo": "MOV-027",
@@ -267,7 +293,8 @@
         "director": "Damien Chazelle",
         "anio": 2014,
         "duracion": 106,
-        "stock": 3
+        "stock": 3,
+        "puntuacion": 8.5
     },
     {
         "codigo": "MOV-028",
@@ -277,7 +304,8 @@
         "director": "Alfred Hitchcock",
         "anio": 1960,
         "duracion": 109,
-        "stock": 2
+        "stock": 2,
+        "puntuacion": 8.5
     },
     {
         "codigo": "MOV-029",
@@ -287,7 +315,8 @@
         "director": "David Fincher",
         "anio": 1995,
         "duracion": 127,
-        "stock": 4
+        "stock": 4,
+        "puntuacion": 8.6
     },
     {
         "codigo": "MOV-030",
@@ -297,7 +326,8 @@
         "director": "Christopher Nolan",
         "anio": 2023,
         "duracion": 180,
-        "stock": 5
+        "stock": 5,
+        "puntuacion": 8.9
     },
     {
         "codigo": "MOV-031",
@@ -307,7 +337,8 @@
         "director": "Jon Favreau",
         "anio": 2008,
         "duracion": 126,
-        "stock": 5
+        "stock": 5,
+        "puntuacion": 7.9
     },
     {
         "codigo": "MOV-032",
@@ -317,7 +348,8 @@
         "director": "Joss Whedon",
         "anio": 2012,
         "duracion": 143,
-        "stock": 4
+        "stock": 4,
+        "puntuacion": 8.0
     },
     {
         "codigo": "MOV-033",
@@ -327,7 +359,8 @@
         "director": "Anthony y Joe Russo",
         "anio": 2014,
         "duracion": 136,
-        "stock": 3
+        "stock": 3,
+        "puntuacion": 7.8
     },
     {
         "codigo": "MOV-034",
@@ -337,7 +370,8 @@
         "director": "James Gunn",
         "anio": 2014,
         "duracion": 121,
-        "stock": 6
+        "stock": 6,
+        "puntuacion": 8.0
     },
     {
         "codigo": "MOV-035",
@@ -347,7 +381,8 @@
         "director": "Anthony y Joe Russo",
         "anio": 2016,
         "duracion": 147,
-        "stock": 2
+        "stock": 2,
+        "puntuacion": 7.8
     },
     {
         "codigo": "MOV-036",
@@ -357,7 +392,8 @@
         "director": "Taika Waititi",
         "anio": 2017,
         "duracion": 130,
-        "stock": 4
+        "stock": 4,
+        "puntuacion": 7.9
     },
     {
         "codigo": "MOV-037",
@@ -367,7 +403,8 @@
         "director": "Ryan Coogler",
         "anio": 2018,
         "duracion": 134,
-        "stock": 5
+        "stock": 5,
+        "puntuacion": 7.3
     },
     {
         "codigo": "MOV-038",
@@ -377,7 +414,8 @@
         "director": "Anthony y Joe Russo",
         "anio": 2018,
         "duracion": 149,
-        "stock": 7
+        "stock": 7,
+        "puntuacion": 8.4
     },
     {
         "codigo": "MOV-039",
@@ -387,7 +425,8 @@
         "director": "Anthony y Joe Russo",
         "anio": 2019,
         "duracion": 181,
-        "stock": 8
+        "stock": 8,
+        "puntuacion": 8.4
     },
     {
         "codigo": "MOV-040",
@@ -397,6 +436,7 @@
         "director": "Jon Watts",
         "anio": 2021,
         "duracion": 148,
-        "stock": 6
+        "stock": 6,
+        "puntuacion": 8.2
     }
 ]

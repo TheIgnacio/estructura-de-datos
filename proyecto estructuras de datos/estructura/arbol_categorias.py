@@ -231,7 +231,8 @@ def cargar_peliculas_desde_json(ruta_archivo=None) -> list[Pelicula]:
             item["director"],
             item["anio"],
             item["duracion"],
-            item["stock"]
+            item["stock"],
+            item.get("puntuacion", 0.0)
         )
         catalogo.append(pelicula)
 
