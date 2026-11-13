@@ -4,7 +4,7 @@
 
 Sistema de gestión de un videoclub desarrollado en Python como aplicación de consola.
 
-Permite administrar un catálogo de películas y clientes, organizar las películas por categorías, buscar mediante estructuras de datos y reservar películas desde una cuenta de usuario. El sistema tiene inicio de sesión con dos roles (administrador y usuario) y guarda la información en archivos JSON.
+Permite administrar un catálogo de películas y clientes, organizar las películas por categorías, buscar mediante estructuras de datos, reservar películas desde una cuenta de usuario, mostrar un ranking de las mejor puntuadas y controlar a los clientes con una lista negra y recargos por devolución tardía. El sistema tiene inicio de sesión con dos roles (administrador y usuario) y guarda la información en archivos JSON.
 
 Trabajo final de la materia **Estructuras de Datos — UNaB**.
 
@@ -96,6 +96,9 @@ El menú que se muestra depende del rol de la cuenta: **administrador** o **usua
 | 10 | Buscar por código (informa los pasos) | BST balanceado |
 | 11 | Deshacer la última operación | Pila |
 | 12 | Ver historial de consultas | Cola |
+| 13 | Gestionar la lista negra de clientes (ver, bloquear y desbloquear) | Lista |
+| 14 | Aplicar recargo por devolución tardía | Lista |
+| 15 | Ver el ranking Top 10 de películas | Quicksort |
 | 0 | Cerrar sesión | — |
 
 ### Menú de usuario
@@ -112,9 +115,10 @@ El menú que se muestra depende del rol de la cuenta: **administrador** o **usua
 | 8 | Cancelar una reserva | Lista |
 | 9 | Ver mis datos de perfil | — |
 | 10 | Ver mi historial de consultas | Cola |
+| 11 | Ver el ranking Top 10 de películas | Quicksort |
 | 0 | Cerrar sesión | — |
 
-Las altas, bajas, modificaciones y reservas se guardan automáticamente en los archivos JSON. Al reservar una película se descuenta una unidad de stock, y al cancelar la reserva se devuelve.
+Las altas, bajas, modificaciones, reservas y recargos se guardan automáticamente en los archivos JSON. Al reservar una película se descuenta una unidad de stock, y al cancelar la reserva se devuelve. Los clientes que están en la lista negra no pueden iniciar sesión. Al agregar una película, el administrador carga también su puntuación (de 0.0 a 10.0).
 
 ## 🗂️ Estructura del proyecto
 
@@ -133,6 +137,7 @@ estructura-de-datos/
     │   └── Menu.py
     ├── datos/
     │   ├── clientes.json
+    │   ├── devoluciones.json
     │   └── peliculas.json
     ├── estructura/
     │   ├── __init__.py
@@ -156,16 +161,17 @@ estructura-de-datos/
 |---|---|
 | `main.py` | Punto de entrada del programa. |
 | `UX/Menu.py` | Pantalla de acceso, menú de administrador y menú de usuario. |
-| `modelo/pelicula.py` | Clase `Pelicula`: atributos privados con `@property`, validaciones, y carga y guardado en JSON. |
-| `modelo/clientes.py` | Clase `Cliente`: datos, usuario, rol, reservas, y carga y guardado en JSON. |
+| `modelo/pelicula.py` | Clase `Pelicula`: atributos privados con `@property`, validaciones (incluida la puntuación de 0.0 a 10.0), y carga y guardado en JSON. |
+| `modelo/clientes.py` | Clase `Cliente`: datos, usuario, rol, reservas, estado de lista negra, deuda, y carga y guardado en JSON. |
 | `estructura/arbol_categorias.py` | Árbol general de categorías y subcategorías. |
 | `estructura/arbol_bst.py` | Árbol binario de búsqueda, recorridos y comparación de eficiencia. |
-| `estructura/pila.py` | Pila implementada con nodos enlazados. |
+| `estructura/pila.py` | Pila implementada con nodos enlazados (con los alias `append` y `pop`). |
 | `estructura/cola.py` | Cola implementada con nodos enlazados y tamaño máximo. |
 | `servicios/verificacion.py` | Autenticación de usuarios y registro de nuevos clientes. |
 | `servicios/persistencia.py` | Funciones de carga de datos de la primera versión. Hoy la lectura y el guardado se hacen desde las clases `Pelicula` y `Cliente`. |
-| `datos/peliculas.json` | Catálogo de 40 películas. |
-| `datos/clientes.json` | Datos de los clientes, sus cuentas y sus reservas. |
+| `datos/peliculas.json` | Catálogo de 40 películas, con su puntuación. |
+| `datos/clientes.json` | Datos de los clientes, sus cuentas, reservas, estado de lista negra y deuda. |
+| `datos/devoluciones.json` | Registro de devoluciones (cliente, película, fecha prevista, fecha de devolución y precio) usado para calcular recargos. |
 | `USO-DE-IA.md` | Detalle del uso de herramientas de inteligencia artificial. |
 | `.gitignore` | Indica qué archivos y carpetas debe ignorar Git (por ejemplo, las carpetas `__pycache__`). |
 
@@ -183,14 +189,17 @@ Los estados indican el avance del proyecto y se actualizan a medida que se compl
 | Inicio de sesión con roles y registro de clientes | Lista y archivos JSON | Implementado |
 | Reservar y cancelar películas, con control de stock | Lista | Implementado |
 | Eliminar clientes | Lista | Implementado |
+| Lista negra de clientes: bloquear, desbloquear y restringir el acceso | Lista | Implementado |
+| Recargo del 15% por día de atraso en una devolución, que se suma a la deuda del cliente | Lista y archivos JSON | Implementado |
+| Ranking Top 10 de películas por puntuación | Quicksort | Implementado |
 | Explorar películas por categorías | Árbol general | Implementado |
 | Buscar películas por código | Árbol binario de búsqueda | Implementado |
 | Obtener un listado ordenado | Recorrido inorden del árbol | Implementado |
 | Comparar la eficiencia de búsquedas | Lista y árboles | Implementado en `arbol_bst.py` |
-| Deshacer la última operación sobre películas | Pila | Implementado |
+| Deshacer la última operación (altas, bajas y modificaciones de películas, y recargos) | Pila | Implementado |
 | Historial de las últimas consultas | Cola | Implementado |
 | Modificar los datos de un cliente | Lista | Pendiente |
-| Consultar clientes morosos | Lista | Pendiente |
+| Consultar clientes morosos | Lista | Parcial: hay lista negra y deuda por recargos; falta un listado de clientes con deuda |
 
 ## 🧱 Estructuras de datos utilizadas
 
@@ -280,8 +289,8 @@ Un árbol binario de búsqueda solo es eficiente si está equilibrado. Con 40 el
 
 **Aplicación en el proyecto:**
 
-- Cada alta, baja o modificación de una película que hace el administrador se apila junto con la información necesaria para revertirla.
-- La opción "Deshacer la última operación" desapila la acción más reciente y la revierte: quita la película agregada, restaura la eliminada o recupera los datos anteriores de la modificada.
+- Cada alta, baja o modificación de una película, y cada recargo que aplica el administrador, se apila junto con la información necesaria para revertirlo.
+- La opción "Deshacer la última operación" desapila la acción más reciente y la revierte: quita la película agregada, restaura la eliminada, recupera los datos anteriores de la modificada o resta el recargo aplicado a la deuda del cliente.
 
 Se eligió una pila porque lo último que se hizo es lo primero que se debe deshacer.
 
@@ -296,15 +305,26 @@ Se eligió una pila porque lo último que se hizo es lo primero que se debe desh
 - Guardar el historial de las últimas 5 películas consultadas por cada sesión.
 - Al llenarse, la consulta más antigua se descarta para dar lugar a la más reciente.
 
+### 6. Ordenamiento Quicksort
+
+**Archivo:** `UX/Menu.py` (función `ordenar_por_puntuacion`)
+
+**Descripción:** algoritmo de ordenamiento por división. Se elige un elemento como pivote y se separan las películas en tres grupos: las de mayor puntuación, las de igual puntuación y las de menor puntuación. Después se ordena cada grupo de forma recursiva y se unen los resultados. Está implementado a mano, sin usar `sorted()` ni `sort()`, y ordena de mayor a menor.
+
+**Aplicación en el proyecto:**
+
+- Armar el ranking Top 10 de las películas mejor puntuadas, disponible para el administrador (opción 15) y para el usuario (opción 11).
+
 ## 💾 Persistencia de datos
 
 El proyecto utiliza archivos JSON para almacenar información entre ejecuciones.
 
 - `peliculas.json`: datos del catálogo de películas.
-- `clientes.json`: datos de los clientes, sus cuentas y sus reservas.
+- `clientes.json`: datos de los clientes, sus cuentas, reservas, estado de lista negra y deuda.
+- `devoluciones.json`: registro de devoluciones que se usa para calcular los recargos por atraso.
 - Las clases `Pelicula` y `Cliente` incluyen los métodos para convertirse a diccionario y para cargarse y guardarse en JSON.
 
-Cada alta, baja, modificación o reserva realizada desde el menú se guarda en el archivo correspondiente.
+Cada alta, baja, modificación, reserva, bloqueo o recargo realizado desde el menú se guarda en el archivo correspondiente.
 
 **Limitación conocida:** las contraseñas se guardan en texto plano en `clientes.json`. Es una simplificación válida para un trabajo académico; en un sistema real deberían almacenarse con un hash.
 
@@ -320,6 +340,10 @@ Cada alta, baja, modificación o reserva realizada desde el menú se guarda en e
 - Como usuario: reservar una película, comprobar que baja el stock, intentar reservarla otra vez y cancelarla.
 - Intentar reservar una película sin stock.
 - Ejecutar los módulos de árboles, pila y cola y revisar los resultados.
+- Como administrador: bloquear a un cliente, comprobar que no puede iniciar sesión y desbloquearlo. Verificar que no se pueda bloquear a un administrador.
+- Aplicar un recargo por devolución tardía, comprobar que sube la deuda del cliente y deshacerlo.
+- Ver el ranking Top 10 y comprobar que está ordenado de mayor a menor puntuación.
+- Agregar una película con una puntuación fuera de rango (por ejemplo, 11) y verificar que se rechaza.
 - Ingresar texto en lugar de un número en los menús.
 
 ## 📚 Contexto académico
@@ -336,4 +360,4 @@ Detallado en `USO-DE-IA.md`.
 
 **En desarrollo.**
 
-Funcionan el inicio de sesión con roles, la gestión de películas y reservas, el guardado en JSON y las cuatro estructuras (listas, árboles, pila y cola) integradas al menú. Queda completar la gestión de clientes (modificar datos y consultar morosos) y realizar pruebas del funcionamiento completo.
+Funcionan el inicio de sesión con roles, la gestión de películas y reservas, la lista negra de clientes, los recargos por devolución tardía, el ranking con Quicksort, el guardado en JSON y las estructuras (listas, árboles, pila y cola) integradas al menú. Queda completar la gestión de clientes (modificar datos y un listado de morosos) y realizar pruebas del funcionamiento completo.
