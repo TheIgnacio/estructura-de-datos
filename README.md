@@ -177,7 +177,7 @@ estructura-de-datos/
 
 ## ⚙️ Funcionalidades del sistema
 
-Los estados indican el avance del proyecto y se actualizan a medida que se completan las implementaciones.
+Estado de cada funcionalidad del proyecto.
 
 | Funcionalidad | Estructura o recurso | Estado |
 |---|---|---|
@@ -198,8 +198,6 @@ Los estados indican el avance del proyecto y se actualizan a medida que se compl
 | Comparar la eficiencia de búsquedas | Lista y árboles | Implementado en `arbol_bst.py` |
 | Deshacer la última operación (altas, bajas y modificaciones de películas, y recargos) | Pila | Implementado |
 | Historial de las últimas consultas | Cola | Implementado |
-| Modificar los datos de un cliente | Lista | Pendiente |
-| Consultar clientes morosos | Lista | Parcial: hay lista negra y deuda por recargos; falta un listado de clientes con deuda |
 
 ## 🧱 Estructuras de datos utilizadas
 
@@ -358,6 +356,6 @@ Detallado en `USO-DE-IA.md`.
 
 ## 📌 Estado general del proyecto
 
-**En desarrollo.**
+**Finalizado.**
 
-Funcionan el inicio de sesión con roles, la gestión de películas y reservas, la lista negra de clientes, los recargos por devolución tardía, el ranking con Quicksort, el guardado en JSON y las estructuras (listas, árboles, pila y cola) integradas al menú. Queda completar la gestión de clientes (modificar datos y un listado de morosos) y realizar pruebas del funcionamiento completo.
+El proyecto está terminado. Todas las funcionalidades de la tabla están implementadas e integradas al menú: el inicio de sesión con roles, la gestión de películas y reservas, la lista negra de clientes, los recargos por devolución tardía, el ranking con Quicksort, el guardado en JSON y las estructuras de datos (listas, árboles, pila y cola).
